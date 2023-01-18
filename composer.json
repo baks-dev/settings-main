@@ -1,6 +1,6 @@
 {
   "name": "baks-dev/settings-main",
-  "description": "Модуль Core",
+  "description": "Модуль основных натсроек",
   "homepage": "https://github.com/baks-dev/settings-main",
   "keywords": ["bundle", "symfony", "settings", "main"],
   "license": "MIT",
