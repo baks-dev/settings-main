@@ -1,0 +1,42 @@
+{
+  "name": "baks-dev/settings-main",
+  "description": "Модуль Core",
+  "homepage": "https://github.com/baks-dev/settings-main",
+  "keywords": ["bundle", "symfony", "settings", "main"],
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Baks Development",
+      "email": "admin@baks.dev"
+    }
+  ],
+
+  "require": {
+    "php": ">=8.1",
+    "baks-dev/core": "^1.0"
+  },
+
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  },
+
+  "autoload": {
+    "psr-4": {
+      "BaksDev\\Settings\\Main\\": ""
+    }
+  },
+
+  "autoload-dev": {
+    "psr-4": {
+      "BaksDev\\Settings\\Main\\Tests\\": "Tests/"
+    }
+  },
+
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "symfony/flex": true
+    }
+  }
+}

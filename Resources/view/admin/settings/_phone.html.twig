@@ -1,0 +1,58 @@
+{% trans_default_domain 'settings.main.phone' %}
+
+<div class="card card-flush w-100 border-light">
+
+	<div class="card-header border-light bg-body">
+		<div class="card-title">
+			<h4>
+				Список телефонов
+			</h4>
+		</div>
+	</div>
+
+	<div class="card-body pb-0" id="phone_collection">
+
+		{% for phone in form.phone %}
+			<div class="item-collection-phone">
+				{{ include(_self|replace({ "_phone.html.twig": "prototype/phone.html.twig" })) }}
+			</div>
+
+		{% endfor %}
+
+		<div class="alert alert-warning d-flex align-items-center{{ form.phone|length > 0 ? ' d-none' }}" id="empty_phone_collection">
+			<!--begin::Svg Icon | path: icons/duotune/general/gen048.svg-->
+			<span class="svg-icon svg-icon-2hx svg-icon-warning me-4">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+					<rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="black"></rect>
+					<rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="black"></rect>
+					<rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="black"></rect>
+				</svg>
+			</span>
+			<!--end::Svg Icon-->
+			<div class="d-flex flex-column">
+				<span>Контактные номера телефонов отсутствуют</span>
+			</div>
+		</div>
+
+	</div>
+
+	{#{{ dd(include(_self|replace({ "_phone.html.twig": "prototype/phone.html.twig" } ), { phone : form.phone.vars.prototype })|e('html_attr') ) }}#}
+
+	<div class="card-footer border-light bg-body">
+		<button type="button" id="phone_addCollection" class="btn btn-sm btn-light-primary"
+				data-prototype="{{ include(_self|replace({ "_phone.html.twig": "prototype/phone.html.twig" } ), { phone : form.phone.vars.prototype })|e('html_attr') }}"
+				data-index="{{ form.phone|length }}"
+		>
+			<!--begin::Svg Icon | path: icons/duotune/arrows/arr087.svg-->
+			<span class="svg-icon svg-icon-2">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+					<rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1" transform="rotate(-90 11 18)"
+						  fill="black"></rect>
+					<rect x="6" y="11" width="12" height="2" rx="1" fill="black"></rect>
+				</svg>
+			</span>
+			Добавить номер
+		</button>
+	</div>
+
+</div>

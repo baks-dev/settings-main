@@ -1,0 +1,55 @@
+{% trans_default_domain 'settings.main.social' %}
+
+<div class="card card-flush w-100 border-light">
+
+	<div class="card-header bg-body border-light">
+		<div class="card-title">
+			<h4>
+				Ссылки на страницы в соцсетях
+			</h4>
+		</div>
+	</div>
+
+	<div class="card-body pb-0" id="social_collection">
+
+		{% for social in form.social %}
+			<div class="item-collection-social">
+				{{ include(_self|replace({ "_social.html.twig": "prototype/social.html.twig" })) }}
+			</div>
+		{% endfor %}
+
+		<div class="alert alert-warning d-flex align-items-center{{ form.social|length > 0 ? ' d-none' }}"  id="empty_social_collection">
+			<span class="svg-icon svg-icon-2hx svg-icon-warning me-4">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+					<rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="black"></rect>
+					<rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="black"></rect>
+					<rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="black"></rect>
+				</svg>
+			</span>
+			<div class="d-flex flex-column">
+				<span>ссылки на страницы в соцсетях отсутствуют</span>
+			</div>
+		</div>
+
+	</div>
+
+	{#{{ dd(include(_self|replace({ "_social.html.twig": "prototype/social.html.twig" } ), { social : form.social.vars.prototype })|e('html_attr') ) }}#}
+
+	<div class="card-footer border-light bg-body">
+		<button type="button" id="social_addCollection" class="btn btn-sm btn-light-primary"
+				data-prototype="{{ include(_self|replace({ "_social.html.twig": "prototype/social.html.twig" } ), { social : form.social.vars.prototype })|e('html_attr') }}"
+				data-index="{{ form.social|length }}"
+		>
+			<!--begin::Svg Icon | path: icons/duotune/arrows/arr087.svg-->
+			<span class="svg-icon svg-icon-2">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+					<rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1" transform="rotate(-90 11 18)"
+						  fill="black"></rect>
+					<rect x="6" y="11" width="12" height="2" rx="1" fill="black"></rect>
+				</svg>
+			</span>
+			Добавить ссылку
+		</button>
+	</div>
+
+</div>
