@@ -18,31 +18,45 @@
 
 namespace BaksDev\Settings\Main\Repository\SettingsMain;
 
+use BaksDev\Core\Repository\SettingsMain\SettingsMainInterface;
 use BaksDev\Settings\Main\Entity as EntitySettings;
 use BaksDev\Settings\Main\Type\Id\SettingsMainIdentificator;
 use BaksDev\Core\Type\Locale\Locale;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
+use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[AsDecorator(SettingsMainInterface::class)]
 final class SettingsMain implements SettingsMainInterface
 {
-    private Connection $connection;
-    private Locale $locale;
-    private SettingsMainIdentificator $settingsMain;
-    
-    public function __construct(Connection $connection, TranslatorInterface $translator)
+//    private Connection $connection;
+//    private Locale $locale;
+//    private SettingsMainIdentificator $settingsMainIdentificator;
+//	private SettingsMainInterface $settingsMain;
+//
+//    public function __construct(SettingsMainInterface $settingsMain, Connection $connection, TranslatorInterface $translator)
+//    {
+//		$this->settingsMain = $settingsMain;
+//
+//        $this->connection = $connection;
+//        $this->locale = new Locale($translator->getLocale());
+//        $this->settingsMainIdentificator = new SettingsMainIdentificator();
+//    }
+	
+	private SettingsMainInterface $settingsMain;
+	
+	public function __construct(SettingsMainInterface $settingsMain)
+	{
+		$this->settingsMain = $settingsMain;
+	}
+
+    public function getQuery() : ?array
     {
-        $this->connection = $connection;
-        $this->locale = new Locale($translator->getLocale());
-        $this->settingsMain = new SettingsMainIdentificator();
-    }
-    
-    /**
-     * @throws Exception
-     */
-    public function getQuery() : array|bool
-    {
+	
+		dd('getQuery');
+		
+		
         $qb = $this->connection->createQueryBuilder();
         
         $qb->select('event.color');
@@ -67,12 +81,12 @@ final class SettingsMain implements SettingsMainInterface
         $qb->setParameter('local', $this->locale, Locale::TYPE);
         
         $qb->where('main.id = :main');
-        $qb->setParameter('main', $this->settingsMain, SettingsMainIdentificator::TYPE);
+        $qb->setParameter('main', $this->settingsMainIdentificator, SettingsMainIdentificator::TYPE);
     
         
         $settings = $qb->fetchAssociative();
         
-        //dd($settings);
+      
         
         if(is_array($settings))
         {
