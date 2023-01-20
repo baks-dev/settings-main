@@ -17,10 +17,6 @@
 
 namespace BaksDev\Settings\Main\UseCase\Admin\NewEdit;
 
-//use App\Module\Files\Res\Upload\File\FileUploadInterface;
-//use App\Module\Files\Res\Upload\Image\ImageUploadInterface;
-//use App\Module\Products\Product\Entity\Event\ProductEventInterface;
-//use App\Module\Products\Product\GetUserById\UniqProductUrl\UniqProductUrlInterface;
 use BaksDev\Settings\Main\Entity as EntitySettingsMain;
 use BaksDev\Settings\Main\Entity\Event\SettingsMainEventInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,26 +26,17 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class SettingsMainHandler
 {
     private EntityManagerInterface $entityManager;
-    //private ImageUploadInterface $imageUpload;
-    //private FileUploadInterface $fileUpload;
-    //private UniqProductUrlInterface $uniqProductUrl;
     private ValidatorInterface $validator;
     private LoggerInterface $logger;
     
     public function __construct(
       EntityManagerInterface $entityManager,
-      //      ImageUploadInterface $imageUpload,
-      //      FileUploadInterface $fileUpload,
-      //      UniqProductUrlInterface $uniqProductUrl,
       ValidatorInterface $validator,
       LoggerInterface $logger
     
     )
     {
         $this->entityManager = $entityManager;
-        //        $this->imageUpload = $imageUpload;
-        //        $this->fileUpload = $fileUpload;
-        //        $this->uniqProductUrl = $uniqProductUrl;
         $this->validator = $validator;
         $this->logger = $logger;
     }

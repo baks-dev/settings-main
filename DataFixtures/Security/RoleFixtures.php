@@ -19,11 +19,11 @@
 namespace BaksDev\Settings\Main\DataFixtures\Security;
 
 use BaksDev\Settings\Main\DataFixtures\Security\Role\RoleDTO;
-use App\Module\Users\Groups\Group\DataFixtures\Security\Group\GroupFixtures;
-use App\Module\Users\Groups\Group\Entity\Event\GroupEvent;
-use App\Module\Users\Groups\Group\UseCase\Admin\NewEdit\CheckRoleHandler;
-use App\Module\Users\Groups\Role\Entity\Role;
-use App\Module\Users\Groups\Role\UseCase\Admin\NewEdit\RoleHandler;
+use BaksDev\Users\Groups\Group\DataFixtures\Security\Group\GroupFixtures;
+use BaksDev\Users\Groups\Group\Entity\Event\GroupEvent;
+use BaksDev\Users\Groups\Group\UseCase\Admin\NewEdit\CheckRoleHandler;
+use BaksDev\Users\Groups\Role\Entity\Role;
+use BaksDev\Users\Groups\Role\UseCase\Admin\NewEdit\RoleHandler;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
