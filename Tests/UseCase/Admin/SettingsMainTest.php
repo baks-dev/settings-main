@@ -18,8 +18,8 @@
 
 namespace BaksDev\Settings\Main\Tests\UseCase\Admin;
 
-use App\Module\Dictionary\Color\Type\Color;
-use App\Module\Dictionary\Color\Type\ColorEnum;
+use BaksDev\Reference\Color\Type\Color;
+use BaksDev\Reference\Color\Type\ColorEnum;
 use BaksDev\Settings\Main\Entity\Event\SettingsMainEvent;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit;
 use BaksDev\Core\Type\Locale\Locale;

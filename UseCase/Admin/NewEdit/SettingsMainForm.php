@@ -17,7 +17,7 @@
 
 namespace BaksDev\Settings\Main\UseCase\Admin\NewEdit;
 
-use App\Module\Dictionary\Color\Type\Color;
+use BaksDev\Reference\Color\Type\Color;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\Phone\SettingsMainPhoneForm;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\Seo\SettingsMainSeoForm;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\Social\SettingsMainSocialForm;

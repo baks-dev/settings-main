@@ -1,14 +1,14 @@
 {% trans_default_domain 'settings.main' %}
 
 {# ---- ШАБЛОН ------------------------------------------------------------ #}
-{% extends '@System/admin/base.html.twig' %}
+{% extends '@Core/admin/base.html.twig' %}
 
 {% block title %}{{ 'admin.page'|trans() }}{% endblock %}
 
 {# ---- CSS ------------------------------------------------------------ #}
 {% block stylesheets %}
-	<link href="/plugins/nice-select2/nice-select2.min.css" rel="stylesheet" type="text/css">
-	{#<link href="/plugins/cropper/cropper.bundle.css" rel="stylesheet" type="text/css">#}
+	<link href="/assets/plugins/nice-select2/nice-select2.min.css" rel="stylesheet" type="text/css">
+	{#<link href="/assets/plugins/cropper/cropper.bundle.css" rel="stylesheet" type="text/css">#}
 {% endblock %}
 
 {# ---- HEADER-БЛОК ------------------------------------------------------------ #}
@@ -38,15 +38,15 @@
 
 
 {#
-    <script nonce="{{ csp_nonce() }}" data-src="/settings_main/phone.min.js" class="lazy">
-        <script nonce="{{ csp_nonce() }}" data-src="/settings_main/social.min.js" class="lazy">#}
+    <script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/phone.min.js" class="lazy">
+        <script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/social.min.js" class="lazy">#}
 
 {% block javascript %}
 
-<script nonce="{{ csp_nonce() }}" data-src="/plugins/nice-select2/nice-select2.js" class="lazy"></script>
-<script nonce="{{ csp_nonce() }}" data-src="/settings_main/phone.min.js" class="lazy"></script>
-<script nonce="{{ csp_nonce() }}" data-src="/settings_main/social.min.js" class="lazy"></script>
-<script nonce="{{ csp_nonce() }}" data-src="/settings_main/main.min.js" class="lazy"></script>
+<script nonce="{{ csp_nonce() }}" data-src="/assets/plugins/nice-select2/nice-select2.js" class="lazy"></script>
+<script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/phone.min.js" class="lazy"></script>
+<script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/social.min.js" class="lazy"></script>
+<script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/main.min.js" class="lazy"></script>
 {% endblock %}
 {#
 {% block javascript %}

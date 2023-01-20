@@ -2,8 +2,8 @@
 
 namespace BaksDev\Settings\Main\Entity\Modify;
 
-use App\Module\Users\User\Entity\User;
-use App\Module\Users\User\Type\Id\UserUid;
+use BaksDev\Users\User\Entity\User;
+use BaksDev\Users\User\Type\Id\UserUid;
 use BaksDev\Core\Type\Ip\IpAddress;
 use BaksDev\Core\Type\Modify\ModifyActionEnum;
 

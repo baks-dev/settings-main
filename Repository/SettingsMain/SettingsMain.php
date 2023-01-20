@@ -30,33 +30,22 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[AsDecorator(SettingsMainInterface::class)]
 final class SettingsMain implements SettingsMainInterface
 {
-//    private Connection $connection;
-//    private Locale $locale;
-//    private SettingsMainIdentificator $settingsMainIdentificator;
-//	private SettingsMainInterface $settingsMain;
-//
-//    public function __construct(SettingsMainInterface $settingsMain, Connection $connection, TranslatorInterface $translator)
-//    {
-//		$this->settingsMain = $settingsMain;
-//
-//        $this->connection = $connection;
-//        $this->locale = new Locale($translator->getLocale());
-//        $this->settingsMainIdentificator = new SettingsMainIdentificator();
-//    }
-	
+    private Connection $connection;
+    private Locale $locale;
+    private SettingsMainIdentificator $settingsMainIdentificator;
 	private SettingsMainInterface $settingsMain;
-	
-	public function __construct(SettingsMainInterface $settingsMain)
-	{
-		$this->settingsMain = $settingsMain;
-	}
 
-    public function getQuery() : ?array
+    public function __construct(SettingsMainInterface $settingsMain, Connection $connection, TranslatorInterface $translator)
     {
+		$this->settingsMain = $settingsMain;
+
+        $this->connection = $connection;
+        $this->locale = new Locale($translator->getLocale());
+        $this->settingsMainIdentificator = new SettingsMainIdentificator();
+    }
 	
-		dd('getQuery');
-		
-		
+	public function getSettingsMainAssociative() : array
+    {
         $qb = $this->connection->createQueryBuilder();
         
         $qb->select('event.color');
@@ -85,16 +74,14 @@ final class SettingsMain implements SettingsMainInterface
     
         
         $settings = $qb->fetchAssociative();
-        
-      
-        
+		
         if(is_array($settings))
         {
             $settings['phone'] = $this->getPhone();
             $settings['social'] = $this->getSocial();
         }
 		
-        return $settings;
+        return $settings ?: $this->settingsMain->getSettingsMainAssociative();
     }
     
     

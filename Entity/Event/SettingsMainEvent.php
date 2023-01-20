@@ -2,7 +2,7 @@
 
 namespace BaksDev\Settings\Main\Entity\Event;
 
-use BaksDev\Reference\Color;
+use BaksDev\Reference\Color\Type\Color;
 
 use BaksDev\Settings\Main\Entity\Modify\SettingsMainModify;
 use BaksDev\Settings\Main\Entity\Phone\SettingsMainPhone;

@@ -3,7 +3,7 @@
 namespace BaksDev\Settings\Main\Tests\Controller\Admin;
 
 use BaksDev\Settings\Main\Controller\Admin\SettingsController;
-use App\Module\Users\User\Tests\TestUserAccount;
+use BaksDev\Users\User\Tests\TestUserAccount;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class SettingsControllerTest extends WebTestCase

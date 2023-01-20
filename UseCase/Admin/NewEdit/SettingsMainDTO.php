@@ -17,8 +17,8 @@
 
 namespace BaksDev\Settings\Main\UseCase\Admin\NewEdit;
 
-use App\Module\Dictionary\Color\Type\Color;
-use App\Module\Dictionary\Color\Type\ColorEnum;
+use BaksDev\Reference\Color\Type\Color;
+use BaksDev\Reference\Color\Type\ColorEnum;
 use BaksDev\Settings\Main\Entity\Event\SettingsMainEventInterface;
 use BaksDev\Settings\Main\Type\Event\SettingsMainEventUid;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\Phone\SettingsMainPhoneDTO;
