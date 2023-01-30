@@ -6,13 +6,15 @@ use BaksDev\Core\Type\UidType\UidType;
 
 final class SettingsMainSocialType extends UidType
 {
-    public function getClassType() : string
-    {
-        return SettingsMainSocialUid::class;
-    }
-    
-    public function getName() : string
-    {
-        return SettingsMainSocialUid::TYPE;
-    }
+	public function getClassType() : string
+	{
+		return SettingsMainSocialUid::class;
+	}
+	
+	
+	public function getName() : string
+	{
+		return SettingsMainSocialUid::TYPE;
+	}
+	
 }

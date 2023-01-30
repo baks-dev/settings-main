@@ -20,23 +20,26 @@ namespace BaksDev\Settings\Main\Type\Id;
 
 final class SettingsMainIdentificator
 {
-    public const TYPE = 'settings_main';
-    
-    private string $value;
-
-    public function __construct()
-    {
-        $this->value = self::TYPE;
-    }
-    
-    public function __toString() : string
-    {
-        return $this->value;
-    }
-    
-    public function getValue() : string
-    {
-        return $this->value;
-    }
-    
+	public const TYPE = 'settings_main';
+	
+	private string $value;
+	
+	
+	public function __construct()
+	{
+		$this->value = self::TYPE;
+	}
+	
+	
+	public function __toString() : string
+	{
+		return $this->value;
+	}
+	
+	
+	public function getValue() : string
+	{
+		return $this->value;
+	}
+	
 }

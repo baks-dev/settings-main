@@ -27,7 +27,6 @@ use BaksDev\Core\Type\Locale\Locale;
 use BaksDev\Core\Type\Locale\LocaleEnum;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-
 final class SettingsMainFormTest extends TypeTestCase
 {
 	public function testSubmitValidData()
@@ -35,7 +34,7 @@ final class SettingsMainFormTest extends TypeTestCase
 		/* DATA */
 		$SettingsMainEventUid = new SettingsMainEventUid();
 		$color = new Color(ColorEnum::AQUAMARINE);
-
+		
 		/** SEO */
 		$local = new Locale(LocaleEnum::RUS);
 		$description = 'description';
@@ -47,14 +46,12 @@ final class SettingsMainFormTest extends TypeTestCase
 		$title = 'Beeline';
 		$icon = 'Beeline';
 		
-		
 		/* SOCIAL */
 		$socicon = 'fb';
 		$soctitle = 'Facebook';
 		$href = 'https://www.facebook.com';
 		
 		$newDTO = new NewEdit\SettingsMainDTO();
-		
 		
 		/* FORM */
 		$form = $this->factory->create(SettingsMainForm::class, $newDTO);
@@ -114,9 +111,7 @@ final class SettingsMainFormTest extends TypeTestCase
 		$newSocialDTO->setHref($href);
 		$expected->addSocial($newSocialDTO);
 		
-
 		self::assertEquals($expected, $newDTO);
-		
 		
 		/* VIEW */
 		$view = $form->createView();
@@ -127,4 +122,5 @@ final class SettingsMainFormTest extends TypeTestCase
 			self::assertArrayHasKey($key, $children);
 		}
 	}
+	
 }

@@ -30,71 +30,71 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class SettingsMainForm extends AbstractType
 {
-    
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        
-        $builder->add('color', ChoiceType::class, [
-          'required' => false,
-          'placeholder' => 'placeholder.color',
-          'choices' => Color::cases(),
-          'choice_value' => function (?Color $color)
-          {
-              return $color?->getValue();
-          },
-          'choice_label' => function (?Color $color)
-          {
-              return $color?->getValue();
-          },
-          'translation_domain' => 'dictionary.color'
-        ]);
-        
+	
+	public function buildForm(FormBuilderInterface $builder, array $options)
+	{
 		
-        $builder->add('seo', CollectionType::class, [
-          'entry_type' => SettingsMainSeoForm::class,
-          'entry_options' => ['label' => false],
-          'label' => false,
-          'allow_add' => true,
-        ]);
-        
-        $builder->add('phone', CollectionType::class, [
-          'entry_type' => SettingsMainPhoneForm::class,
-          'entry_options' => ['label' => false],
-          'label' => false,
-          'allow_add' => true,
-          'allow_delete' => true,
-        ]);
-        
-        $builder->add('social', CollectionType::class, [
-          'entry_type' => SettingsMainSocialForm::class,
-          'entry_options' => ['label' => false],
-          'label' => false,
-          'allow_add' => true,
-          'allow_delete' => true,
-        ]);
-        
-        /* Сохранить ******************************************************/
-        $builder->add
-        (
-          'settings_main',
-          SubmitType::class,
-          [
-            'label' => 'btn.save',
-            'label_html' => true,
-            'attr' => ['class' => 'btn-primary'],
-            'translation_domain' => 'messages'
-          ]);
-        
-    }
-    
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults
-        (
-          [
-            'data_class' => SettingsMainDTO::class,
-            'method' => 'POST',
-          ]);
-    }
-    
+		$builder->add('color', ChoiceType::class, [
+			'required' => false,
+			'placeholder' => 'placeholder.color',
+			'choices' => Color::cases(),
+			'choice_value' => function(?Color $color) {
+				return $color?->getValue();
+			},
+			'choice_label' => function(?Color $color) {
+				return $color?->getValue();
+			},
+			'translation_domain' => 'dictionary.color',
+		]);
+		
+		$builder->add('seo', CollectionType::class, [
+			'entry_type' => SettingsMainSeoForm::class,
+			'entry_options' => ['label' => false],
+			'label' => false,
+			'allow_add' => true,
+		]);
+		
+		$builder->add('phone', CollectionType::class, [
+			'entry_type' => SettingsMainPhoneForm::class,
+			'entry_options' => ['label' => false],
+			'label' => false,
+			'allow_add' => true,
+			'allow_delete' => true,
+		]);
+		
+		$builder->add('social', CollectionType::class, [
+			'entry_type' => SettingsMainSocialForm::class,
+			'entry_options' => ['label' => false],
+			'label' => false,
+			'allow_add' => true,
+			'allow_delete' => true,
+		]);
+		
+		/* Сохранить ******************************************************/
+		$builder->add
+		(
+			'settings_main',
+			SubmitType::class,
+			[
+				'label' => 'btn.save',
+				'label_html' => true,
+				'attr' => ['class' => 'btn-primary'],
+				'translation_domain' => 'messages',
+			]
+		);
+		
+	}
+	
+	
+	public function configureOptions(OptionsResolver $resolver)
+	{
+		$resolver->setDefaults
+		(
+			[
+				'data_class' => SettingsMainDTO::class,
+				'method' => 'POST',
+			]
+		);
+	}
+	
 }

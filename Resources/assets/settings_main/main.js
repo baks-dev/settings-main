@@ -18,45 +18,45 @@
 
 document.getElementById('settings_main_form_color').addEventListener('change', function () {
     console.log(this.value);
-    document.getElementById('color').value = '#'+this.value;
+    document.getElementById('color').value = '#' + this.value;
 });
 
 
-    // image = document.getElementById('crop_image');
-    //
-    //
-    // var setWidth = 200;
-    // var setHeight = 50;
-    //
-    // var minCroppedWidth = setHeight;
-    // var maxCroppedWidth = setWidth * 2;
-    //
-    // var minCroppedHeight = setHeight;
-    // var maxCroppedHeight = setHeight * 2;
-    //
-    // cropper = new Cropper(image, {
-    //
-    //     data: {
-    //         width: (minCroppedWidth + maxCroppedWidth) / 3,
-    //         height: (minCroppedHeight + maxCroppedHeight) / 3,
-    //     },
-    //
-    //     crop: function (event) {
-    //         var width = event.detail.width;
-    //         var height = event.detail.height;
-    //
-    //         if (
-    //             width < minCroppedWidth
-    //             || height < minCroppedHeight
-    //             || width > maxCroppedWidth
-    //             || height > maxCroppedHeight
-    //         ) {
-    //             cropper.setData({
-    //                 width: Math.max(minCroppedWidth, Math.min(maxCroppedWidth, width)),
-    //                 height: Math.max(minCroppedHeight, Math.min(maxCroppedHeight, height)),
-    //             });
-    //         }
-    //
-    //         //data.textContent = JSON.stringify(cropper.getData(true));
-    //     },
-    // });
+// image = document.getElementById('crop_image');
+//
+//
+// var setWidth = 200;
+// var setHeight = 50;
+//
+// var minCroppedWidth = setHeight;
+// var maxCroppedWidth = setWidth * 2;
+//
+// var minCroppedHeight = setHeight;
+// var maxCroppedHeight = setHeight * 2;
+//
+// cropper = new Cropper(image, {
+//
+//     data: {
+//         width: (minCroppedWidth + maxCroppedWidth) / 3,
+//         height: (minCroppedHeight + maxCroppedHeight) / 3,
+//     },
+//
+//     crop: function (event) {
+//         var width = event.detail.width;
+//         var height = event.detail.height;
+//
+//         if (
+//             width < minCroppedWidth
+//             || height < minCroppedHeight
+//             || width > maxCroppedWidth
+//             || height > maxCroppedHeight
+//         ) {
+//             cropper.setData({
+//                 width: Math.max(minCroppedWidth, Math.min(maxCroppedWidth, width)),
+//                 height: Math.max(minCroppedHeight, Math.min(maxCroppedHeight, height)),
+//             });
+//         }
+//
+//         //data.textContent = JSON.stringify(cropper.getData(true));
+//     },
+// });

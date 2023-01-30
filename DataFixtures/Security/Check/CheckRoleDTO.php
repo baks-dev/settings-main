@@ -27,36 +27,39 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class CheckRoleDTO implements CheckRoleInterface
 {
-    /** Связь на событие группы */
-    #[Assert\NotBlank]
-    private GroupEvent $event;
-    
-    /** Префикс роли */
-    #[Assert\NotBlank]
-    private RolePrefix $role;
-    
-
-    public function __construct(GroupEvent $event, RoleEventInterface $roleDTO) {
-        $this->event = $event;
-        $this->role = $roleDTO->getRole();
-    }
-    
-    /**
-     * @return GroupEvent
-     */
-    public function getEvent() : GroupEvent
-    {
-        return $this->event;
-    }
-    
-    /* role */
-    
-    /**
-     * @return RolePrefix
-     */
-    public function getRole() : RolePrefix
-    {
-        return $this->role;
-    }
+	/** Связь на событие группы */
+	#[Assert\NotBlank]
+	private GroupEvent $event;
+	
+	/** Префикс роли */
+	#[Assert\NotBlank]
+	private RolePrefix $role;
+	
+	
+	public function __construct(GroupEvent $event, RoleEventInterface $roleDTO)
+	{
+		$this->event = $event;
+		$this->role = $roleDTO->getRole();
+	}
+	
+	
+	/**
+	 * @return GroupEvent
+	 */
+	public function getEvent() : GroupEvent
+	{
+		return $this->event;
+	}
+	
+	/* role */
+	
+	/**
+	 * @return RolePrefix
+	 */
+	public function getRole() : RolePrefix
+	{
+		return $this->role;
+	}
+	
 }
 

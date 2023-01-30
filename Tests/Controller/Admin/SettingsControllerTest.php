@@ -11,6 +11,7 @@ final class SettingsControllerTest extends WebTestCase
 	/** @link SettingsController */
 	private string $controller = '/admin/settings/main';
 	
+	
 	/** Доступ для GUEST пользователей */
 	public function testRoleGuest() : void
 	{
@@ -25,9 +26,9 @@ final class SettingsControllerTest extends WebTestCase
 	{
 		$client = static::createClient();
 		$user = TestUserAccount::getUser();
-
+		
 		$client->loginUser($user, 'user');
-
+		
 		$crawler = $client->request('GET', $this->controller);
 		self::assertResponseStatusCodeSame(403); // Пользователь не имеет доступа
 	}

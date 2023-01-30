@@ -28,89 +28,94 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 final class RoleDTO implements RoleEventInterface
 {
-    public const ROLE_PREFIX = 'ROLE_SETTINGS_MAIN';
-    
-    private const ROLE_NAME = [
-      'ru' => 'Основные настройки',
-      'en' => 'Основные настройки системы (SEO, логотип, соцсети, контактный тел)'
-    ];
-    
-    private const ROLE_DESC = [
-      'ru' => 'Settings Main',
-      'en' => 'Basic system settings (SEO, logo, social networks, contact numbers)'
-    ];
-    
-    
-    /** Идентификатор */
-    private ?RoleEventUid $id = null;
-    
-    /** Префикс Роли */
-    private RolePrefix $role;
-    
-    /** Настройки локали */
-    private ArrayCollection $translate;
-
-    
-    public function __construct() {
-        
-        $this->translate = new ArrayCollection();
+	public const ROLE_PREFIX = 'ROLE_SETTINGS_MAIN';
+	
+	public const ROLE_NAME = [
+		'ru' => 'Основные настройки',
+		'en' => 'Основные настройки системы (SEO, логотип, соцсети, контактный тел)',
+	];
+	
+	public const ROLE_DESC = [
+		'ru' => 'Settings Main',
+		'en' => 'Basic system settings (SEO, logo, social networks, contact numbers)',
+	];
+	
+	/** Идентификатор */
+	private ?RoleEventUid $id = null;
+	
+	/** Префикс Роли */
+	private RolePrefix $role;
+	
+	/** Настройки локали */
+	private ArrayCollection $translate;
+	
+	
+	public function __construct()
+	{
+		
+		$this->translate = new ArrayCollection();
 		$this->getTranslate();
-
-        $this->role = new RolePrefix(self::ROLE_PREFIX);
-    }
-    
-    public function getEvent() : ?RoleEventUid
-    {
-        return $this->id;
-    }
-    
-    public function setId(RoleEventUid $id) : void
-    {
-        $this->id = $id;
-    }
-    
-    /**
-     * @return RolePrefix
-     */
-    public function getRole() : RolePrefix
-    {
-        return $this->role;
-    }
-    
-    
-    /* TRANSLATE */
-    
-    /**
-     * @return ArrayCollection
-     */
-    public function getTranslate() : ArrayCollection
-    {
-        /* Вычисляем расхождение и добавляем неопределенные локали */
-        foreach(Locale::diffLocale($this->translate) as $locale)
-        {
-
-            $TransFormDTO = new Role\Trans\RoleTransDTO();
-            $TransFormDTO->setLocal($locale);
-            $TransFormDTO->setName(self::ROLE_NAME[(string)$locale]);
-            $TransFormDTO->setDescription(self::ROLE_DESC[(string)$locale]);
-            $this->addTranslate($TransFormDTO);
-        }
-        
-        return $this->translate;
-    }
-    
-    /**
-     * @param Role\Trans\RoleTransDTO $translate
-     */
-    public function addTranslate(Role\Trans\RoleTransDTO $translate) : void
-    {
-        $this->translate->add($translate);
-    }
-    
-    public function getTranslateClass() : Role\Trans\RoleTransDTO
-    {
-        return new Role\Trans\RoleTransDTO();
-    }
-
+		
+		$this->role = new RolePrefix(self::ROLE_PREFIX);
+	}
+	
+	
+	public function getEvent() : ?RoleEventUid
+	{
+		return $this->id;
+	}
+	
+	
+	public function setId(RoleEventUid $id) : void
+	{
+		$this->id = $id;
+	}
+	
+	
+	/**
+	 * @return RolePrefix
+	 */
+	public function getRole() : RolePrefix
+	{
+		return $this->role;
+	}
+	
+	
+	/* TRANSLATE */
+	
+	/**
+	 * @return ArrayCollection
+	 */
+	public function getTranslate() : ArrayCollection
+	{
+		/* Вычисляем расхождение и добавляем неопределенные локали */
+		foreach(Locale::diffLocale($this->translate) as $locale)
+		{
+			
+			$TransFormDTO = new Role\Trans\RoleTransDTO();
+			$TransFormDTO->setLocal($locale);
+			$TransFormDTO->setName(self::ROLE_NAME[(string) $locale]);
+			$TransFormDTO->setDescription(self::ROLE_DESC[(string) $locale]);
+			$this->addTranslate($TransFormDTO);
+		}
+		
+		return $this->translate;
+	}
+	
+	
+	/**
+	 * @param Role\Trans\RoleTransDTO $translate
+	 */
+	public function addTranslate(Role\Trans\RoleTransDTO $translate) : void
+	{
+		$this->translate->add($translate);
+	}
+	
+	
+	public function getTranslateClass() : Role\Trans\RoleTransDTO
+	{
+		return new Role\Trans\RoleTransDTO();
+	}
+	
 }
 

@@ -18,7 +18,6 @@
 
 namespace BaksDev\Settings\Main\Entity;
 
-
 use BaksDev\Settings\Main\Entity\Event\SettingsMainEvent;
 use BaksDev\Settings\Main\Type\Event\SettingsMainEventUid;
 use BaksDev\Settings\Main\Type\Id\SettingsMainIdentificator;
@@ -26,45 +25,50 @@ use Doctrine\ORM\Mapping as ORM;
 
 /* Системные настройки */
 
+
 #[ORM\Entity]
 #[ORM\Table(name: 'settings_main')]
 class SettingsMain
 {
-    public const TABLE = 'settings_main';
-
-    /** ID */
-    #[ORM\Id]
-    #[ORM\Column(type: SettingsMainIdentificator::TYPE)]
-    private SettingsMainIdentificator $id;
-    
-    /** ID События */
-    #[ORM\Column(name: 'event', type: SettingsMainEventUid::TYPE, unique: true, nullable: false)]
-    private SettingsMainEventUid $event;
-    
-
-    public function __construct() { $this->id = new SettingsMainIdentificator();  }
-
-    /**
-    * @return SettingsMainIdentificator
-    */
-    public function getId() : SettingsMainIdentificator
-    {
-        return $this->id;
-    }
-    
-    /**
-     * @param SettingsMainEvent|\BaksDev\Settings\Main\Type\Event\SettingsMainEventUid $event
-     */
-    public function setEvent(SettingsMainEvent|SettingsMainEventUid $event) : void
-    {
-        $this->event = $event instanceof SettingsMainEvent ? $event->getId() : $event;;
-    }
-    
-    /**
-     * @return \BaksDev\Settings\Main\Type\Event\SettingsMainEventUid
-     */
-    public function getEvent() : SettingsMainEventUid
-    {
-        return $this->event;
-    }
+	public const TABLE = 'settings_main';
+	
+	/** ID */
+	#[ORM\Id]
+	#[ORM\Column(type: SettingsMainIdentificator::TYPE)]
+	private SettingsMainIdentificator $id;
+	
+	/** ID События */
+	#[ORM\Column(name: 'event', type: SettingsMainEventUid::TYPE, unique: true, nullable: false)]
+	private SettingsMainEventUid $event;
+	
+	
+	public function __construct() { $this->id = new SettingsMainIdentificator(); }
+	
+	
+	/**
+	 * @return SettingsMainIdentificator
+	 */
+	public function getId() : SettingsMainIdentificator
+	{
+		return $this->id;
+	}
+	
+	
+	/**
+	 * @param SettingsMainEvent|\BaksDev\Settings\Main\Type\Event\SettingsMainEventUid $event
+	 */
+	public function setEvent(SettingsMainEvent|SettingsMainEventUid $event) : void
+	{
+		$this->event = $event instanceof SettingsMainEvent ? $event->getId() : $event;;
+	}
+	
+	
+	/**
+	 * @return \BaksDev\Settings\Main\Type\Event\SettingsMainEventUid
+	 */
+	public function getEvent() : SettingsMainEventUid
+	{
+		return $this->event;
+	}
+	
 }

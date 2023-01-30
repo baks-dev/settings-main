@@ -8,7 +8,7 @@
 {# ---- CSS ------------------------------------------------------------ #}
 {% block stylesheets %}
 	<link href="/assets/plugins/nice-select2/nice-select2.min.css" rel="stylesheet" type="text/css">
-	{#<link href="/assets/plugins/cropper/cropper.bundle.css" rel="stylesheet" type="text/css">#}
+	{# <link href="/assets/plugins/cropper/cropper.bundle.css" rel="stylesheet" type="text/css"> #}
 {% endblock %}
 
 {# ---- HEADER-БЛОК ------------------------------------------------------------ #}
@@ -38,8 +38,8 @@
 
 
 {#
-    <script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/phone.min.js" class="lazy">
-        <script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/social.min.js" class="lazy">#}
+<script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/phone.min.js" class="lazy">
+	<script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/social.min.js" class="lazy"> #}
 
 {% block javascript %}
 
@@ -68,7 +68,7 @@
     	jsRequire('/system/settings/main/main.min.js');
     });
 </script>
-{% endblock %}#}
+{% endblock %} #}
 
 {# {% block post_javascript %} #}
 {#    /* применяем select2 */ #}

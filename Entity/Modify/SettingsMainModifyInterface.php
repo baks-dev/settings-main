@@ -9,9 +9,12 @@ use BaksDev\Core\Type\Modify\ModifyActionEnum;
 
 interface SettingsMainModifyInterface
 {
-    public function upModifyAgent(IpAddress $ipAddress, string $userAgent) : void;
-    
-    public function setUser(UserUid|User|null $user) : void;
-    
-    public function equals(ModifyActionEnum $action) : bool;
+	public function upModifyAgent(IpAddress $ipAddress, string $userAgent) : void;
+	
+	
+	public function setUser(UserUid|User|null $user) : void;
+	
+	
+	public function equals(ModifyActionEnum $action) : bool;
+	
 }

@@ -22,14 +22,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class SettingsMainPhoneDTO implements SettingsMainPhoneInterface
 {
-
-    public ?string $icon;
-    
-    public ?string $title;
-    
-    #[Assert\NotBlank]
-    #[Assert\Phone]
-    public ?string $phone;
+	
+	public ?string $icon;
+	
+	public ?string $title;
+	
+	#[Assert\NotBlank]
+	#[Assert\Phone]
+	public ?string $phone;
+	
 	
 	/**
 	 * @return string|null
@@ -39,6 +40,7 @@ final class SettingsMainPhoneDTO implements SettingsMainPhoneInterface
 		return $this->icon;
 	}
 	
+	
 	/**
 	 * @param string|null $icon
 	 */
@@ -46,6 +48,7 @@ final class SettingsMainPhoneDTO implements SettingsMainPhoneInterface
 	{
 		$this->icon = $icon;
 	}
+	
 	
 	/**
 	 * @return string|null
@@ -55,6 +58,7 @@ final class SettingsMainPhoneDTO implements SettingsMainPhoneInterface
 		return $this->title;
 	}
 	
+	
 	/**
 	 * @param string|null $title
 	 */
@@ -62,6 +66,7 @@ final class SettingsMainPhoneDTO implements SettingsMainPhoneInterface
 	{
 		$this->title = $title;
 	}
+	
 	
 	/**
 	 * @return string|null
@@ -71,6 +76,7 @@ final class SettingsMainPhoneDTO implements SettingsMainPhoneInterface
 		return $this->phone;
 	}
 	
+	
 	/**
 	 * @param string|null $phone
 	 */
@@ -78,17 +84,14 @@ final class SettingsMainPhoneDTO implements SettingsMainPhoneInterface
 	{
 		$this->phone = $phone;
 	}
-    
-
-//    public function __construct(string $icon = null, string $title = null, string $phone = null)
-//    {
-//        $this->icon = $icon;
-//        $this->title = $title;
-//        $this->phone = $phone;
-//    }
-
-
-
-    
+	
+	
+	//    public function __construct(string $icon = null, string $title = null, string $phone = null)
+	//    {
+	//        $this->icon = $icon;
+	//        $this->title = $title;
+	//        $this->phone = $phone;
+	//    }
+	
 }
 

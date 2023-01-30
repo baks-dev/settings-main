@@ -1,6 +1,4 @@
-
-window.addEventListener('load', function ()
-{
+window.addEventListener('load', function () {
 
     var logo = document.getElementById('logo');
     var image = document.getElementById('image');
@@ -13,13 +11,6 @@ window.addEventListener('load', function ()
 
     var $modalLogo = document.getElementById('modal');
     var $closeModal = new bootstrap.Modal($modalLogo);
-
-
-
-
-
-
-
 
 
     input.addEventListener('change', function (e) {
@@ -61,8 +52,7 @@ window.addEventListener('load', function ()
                 var file;
                 var url;
 
-                if (files && files.length > 0)
-                {
+                if (files && files.length > 0) {
                     file = files[0];
 
                     //if (URL) {
@@ -81,9 +71,7 @@ window.addEventListener('load', function ()
                         }, false);
 
                         reader.readAsDataURL(file);
-                    }
-                    else if (URL)
-                    {
+                    } else if (URL) {
                         done(URL.createObjectURL(file));
                     }
                 }
@@ -91,11 +79,12 @@ window.addEventListener('load', function ()
                 /* получаем форму по имени */
                 let $settings_admin_main_logo = document.forms.namedItem("form");
 
-                if(!$settings_admin_main_logo) { return; }
+                if (!$settings_admin_main_logo) {
+                    return;
+                }
 
                 /* Отправка фотмы сохранения */
-                $settings_admin_main_logo.addEventListener('submit', function (event)
-                {
+                $settings_admin_main_logo.addEventListener('submit', function (event) {
                     event.preventDefault();
 
                     var initialAvatarURL;
@@ -115,7 +104,6 @@ window.addEventListener('load', function ()
                         });
 
 
-
                         canvas.toBlob(function (blob) {
 
                             /* Вставляем новый файл Cropie-аватарку */
@@ -131,13 +119,11 @@ window.addEventListener('load', function ()
                             /* Получаем ответ от сервера на запрос*/
                             request.addEventListener("readystatechange", function (evemnt) {
                                 /* request.readyState - возвращает текущее состояние объекта XHR(XMLHttpRequest) */
-                                if (request.readyState === 4 && request.status === 200)
-                                {
+                                if (request.readyState === 4 && request.status === 200) {
                                     /* Парсим ответ JSON */
                                     const result = JSON.parse(request.responseText);
 
-                                    if(result.status == 200)
-                                    {
+                                    if (result.status == 200) {
                                         /* получаем адрес CDN по атрибуту data-img и  */
                                         /*let cdn = $modalСoverBodyCdn.dataset.img.split('img', 1);*/
 
@@ -155,9 +141,7 @@ window.addEventListener('load', function ()
 
                                         console.log(result);
 
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         /* Ошибка о загрузке файла */
                                         alert('Error upload file cover');
                                         /* Выводим текст ошибки в консоль */
@@ -182,7 +166,6 @@ window.addEventListener('load', function ()
                     }
 
                 });
-
 
 
             }
@@ -249,8 +232,6 @@ window.addEventListener('load', function ()
         cropper.destroy();
         cropper = null;
     });*/
-
-
 
 
 });

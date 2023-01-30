@@ -42,7 +42,6 @@ final class SettingsMainTest extends KernelTestCase
 		//self::assertEquals($SettingsMainEventUid, $newDTO->getEvent());
 		self::assertEquals($color, $newDTO->getColor());
 		
-		
 		/* Проверка мапинга на сущность и обратно */
 		$entity = new SettingsMainEvent();
 		$entity->setEntity($newDTO);
@@ -50,11 +49,10 @@ final class SettingsMainTest extends KernelTestCase
 		$editDTO = new NewEdit\SettingsMainDTO();
 		$entity->getDto($editDTO);
 		
-		
 		self::assertEquals($editDTO->getEvent(), $entity->getId());
 		self::assertNotEquals($editDTO->getEvent(), $newDTO->getEvent());
 		self::assertEquals($editDTO->getColor(), $newDTO->getColor());
-
+		
 	}
 	
 	
@@ -86,7 +84,6 @@ final class SettingsMainTest extends KernelTestCase
 		self::assertEquals($title, $getSeoDTO->getTitle());
 		self::assertEquals($keywords, $getSeoDTO->getKeywords());
 		
-
 		/* Проверка мапинга на сущность и обратно */
 		$entity = new SettingsMainEvent();
 		$entity->setEntity($newDTO);
@@ -103,6 +100,7 @@ final class SettingsMainTest extends KernelTestCase
 		self::assertEquals($keywords, $editDTO->getKeywords());
 	}
 	
+	
 	public function testSettingsMainPhoneDTO() : void
 	{
 		/** DATA */
@@ -114,7 +112,6 @@ final class SettingsMainTest extends KernelTestCase
 		$newPhoneDTO->setPhone($phone);
 		$newPhoneDTO->setTitle($title);
 		$newPhoneDTO->setIcon($icon);
-		
 		
 		$newDTO = new NewEdit\SettingsMainDTO();
 		$newDTO->addPhone($newPhoneDTO);
@@ -129,7 +126,6 @@ final class SettingsMainTest extends KernelTestCase
 		self::assertEquals($title, $getPhoneDTO->getTitle());
 		self::assertEquals($icon, $getPhoneDTO->getIcon());
 		
-		
 		/* Проверка мапинга на сущность и обратно */
 		$entity = new SettingsMainEvent();
 		$entity->setEntity($newDTO);
@@ -143,7 +139,7 @@ final class SettingsMainTest extends KernelTestCase
 		self::assertEquals($phone, $editDTO->getPhone());
 		self::assertEquals($title, $editDTO->getTitle());
 		self::assertEquals($icon, $editDTO->getIcon());
-	
+		
 	}
 	
 	
@@ -172,14 +168,13 @@ final class SettingsMainTest extends KernelTestCase
 		self::assertEquals($icon, $getSocialDTO->getIcon());
 		self::assertEquals($href, $getSocialDTO->getHref());
 		
-		
 		/* Проверка мапинга на сущность и обратно */
 		$entity = new SettingsMainEvent();
 		$entity->setEntity($newDTO);
 		
 		$SettingsMainDTO = new NewEdit\SettingsMainDTO();
 		$entity->getDto($SettingsMainDTO);
-	
+		
 		/** @var $editDTO NewEdit\Social\SettingsMainSocialDTO */
 		$editDTO = $SettingsMainDTO->getSocial()->get(0);
 		
@@ -187,4 +182,5 @@ final class SettingsMainTest extends KernelTestCase
 		self::assertEquals($icon, $editDTO->getIcon());
 		self::assertEquals($href, $editDTO->getHref());
 	}
+	
 }

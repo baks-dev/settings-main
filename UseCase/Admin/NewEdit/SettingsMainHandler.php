@@ -25,104 +25,112 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class SettingsMainHandler
 {
-    private EntityManagerInterface $entityManager;
-    private ValidatorInterface $validator;
-    private LoggerInterface $logger;
-    
-    public function __construct(
-      EntityManagerInterface $entityManager,
-      ValidatorInterface $validator,
-      LoggerInterface $logger
-    
-    )
-    {
-        $this->entityManager = $entityManager;
-        $this->validator = $validator;
-        $this->logger = $logger;
-    }
-    
-    public function handle(
-      SettingsMainEventInterface $command
-    ) : EntitySettingsMain\SettingsMain|string
-    {
-        
-        /* Валидация */
-        $errors = $this->validator->validate($command);
-    
-        if(count($errors) > 0)
-        {
-            $uniqid = uniqid('', false);
-            $errorsString = (string) $errors;
-            $this->logger->error($uniqid.': '.$errorsString);
-            return $uniqid;
-        }
-        
-        
-        if($command->getEvent())
-        {
-            $EventRepo = $this->entityManager->getRepository(EntitySettingsMain\Event\SettingsMainEvent::class)->find(
-              $command->getEvent());
-            
-            if($EventRepo === null)
-            {
-                $uniqid = uniqid('', false);
-                $errorsString = sprintf(
-                  'Not found %s by id: %s',
-                  EntitySettingsMain\Event\SettingsMainEvent::class,
-                  $command->getEvent());
-                $this->logger->error($uniqid.': '.$errorsString);
-    
-                return $uniqid;
-            }
-            
-            $Event = $EventRepo->cloneEntity();
-        }
-        else
-        {
-            $Event = new EntitySettingsMain\Event\SettingsMainEvent();
-        }
+	private EntityManagerInterface $entityManager;
+	
+	private ValidatorInterface $validator;
+	
+	private LoggerInterface $logger;
+	
+	
+	public function __construct(
+		EntityManagerInterface $entityManager,
+		ValidatorInterface $validator,
+		LoggerInterface $logger,
+	
+	)
+	{
+		$this->entityManager = $entityManager;
+		$this->validator = $validator;
+		$this->logger = $logger;
+	}
+	
+	
+	public function handle(
+		SettingsMainEventInterface $command,
+	) : EntitySettingsMain\SettingsMain|string
+	{
 		
-        $Event->setEntity($command);
-        $this->entityManager->clear();
-        //$this->entityManager->refresh();
-        $this->entityManager->persist($Event);
-    
-//
-//        dump($command);
-//        dd($Event);
-        
-        /** @var EntitySettingsMain\SettingsMain $SettingsMain */
-        if($Event->getSetting())
-        {
-            $SettingsMain = $this->entityManager->getRepository(EntitySettingsMain\SettingsMain::class)->findOneBy(
-              ['event' => $command->getEvent()]);
-            
-            if(empty($SettingsMain))
-            {
-                $uniqid = uniqid('', false);
-                $errorsString = sprintf(
-                  'Not found %s by event: %s',
-                  EntitySettingsMain\SettingsMain::class,
-                  $command->getEvent());
-                $this->logger->error($uniqid.': '.$errorsString);
-    
-                return $uniqid;
-            }
-        }
-        else
-        {
-            $SettingsMain = new EntitySettingsMain\SettingsMain();
-            $this->entityManager->persist($SettingsMain);
-            $Event->setSetting($SettingsMain);
-        }
-        
-        $SettingsMain->setEvent($Event); /* Обновляем событие */
+		/* Валидация */
+		$errors = $this->validator->validate($command);
+		
+		if(count($errors) > 0)
+		{
+			$uniqid = uniqid('', false);
+			$errorsString = (string) $errors;
+			$this->logger->error($uniqid.': '.$errorsString);
+			
+			return $uniqid;
+		}
+		
+		if($command->getEvent())
+		{
+			$EventRepo = $this->entityManager->getRepository(EntitySettingsMain\Event\SettingsMainEvent::class)->find(
+				$command->getEvent()
+			);
+			
+			if($EventRepo === null)
+			{
+				$uniqid = uniqid('', false);
+				$errorsString = sprintf(
+					'Not found %s by id: %s',
+					EntitySettingsMain\Event\SettingsMainEvent::class,
+					$command->getEvent()
+				);
+				$this->logger->error($uniqid.': '.$errorsString);
+				
+				return $uniqid;
+			}
+			
+			$Event = $EventRepo->cloneEntity();
+		}
+		else
+		{
+			$Event = new EntitySettingsMain\Event\SettingsMainEvent();
+		}
+		
+		$Event->setEntity($command);
+		$this->entityManager->clear();
+		//$this->entityManager->refresh();
+		$this->entityManager->persist($Event);
+		
+		//
+		//        dump($command);
+		//        dd($Event);
+		
+		/** @var EntitySettingsMain\SettingsMain $SettingsMain */
+		if($Event->getSetting())
+		{
+			$SettingsMain = $this->entityManager->getRepository(EntitySettingsMain\SettingsMain::class)->findOneBy(
+				['event' => $command->getEvent()]
+			);
+			
+			if(empty($SettingsMain))
+			{
+				$uniqid = uniqid('', false);
+				$errorsString = sprintf(
+					'Not found %s by event: %s',
+					EntitySettingsMain\SettingsMain::class,
+					$command->getEvent()
+				);
+				$this->logger->error($uniqid.': '.$errorsString);
+				
+				return $uniqid;
+			}
+		}
+		else
+		{
+			$SettingsMain = new EntitySettingsMain\SettingsMain();
+			$this->entityManager->persist($SettingsMain);
+			$Event->setSetting($SettingsMain);
+		}
+		
+		$SettingsMain->setEvent($Event); /* Обновляем событие */
 		
 		//dd($this->entityManager->getUnitOfWork());
 		
-        $this->entityManager->flush();
-        
-        return $SettingsMain;
-    }
-    
+		$this->entityManager->flush();
+		
+		return $SettingsMain;
+	}
+	
 }
