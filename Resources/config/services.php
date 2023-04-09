@@ -17,6 +17,8 @@ return static function(ContainerConfigurator $configurator) {
 	
 	$services->load($namespace.'\Repository\\', __DIR__.'/../../Repository');
 	
+	$services->load($namespace.'\Event\\', __DIR__.'/../../Event');
+	
 	$services->load($namespace.'\UseCase\\', __DIR__.'/../../UseCase')
 		->exclude(__DIR__.'/../../UseCase/**/*DTO.php')
 	;

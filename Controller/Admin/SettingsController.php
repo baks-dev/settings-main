@@ -61,15 +61,8 @@ final class SettingsController extends AbstractController
 				
 				if($SettingsMain instanceof EntitySettingsMain\SettingsMain)
 				{
-					/* Сбрасываем кеш настроек */
-					$cache = new ApcuAdapter();
-					foreach(Locale::cases() as $lang)
-					{
-						$cache->delete('cache.settings.'.$lang);
-					}
-					
+
 					$this->addFlash('admin.page', 'admin.success.update', 'settings.main');
-					
 				}
 				else
 				{

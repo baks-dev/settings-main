@@ -92,9 +92,15 @@ final class SettingsMainDTO implements SettingsMainEventInterface
 	}
 	
 	
-	public function setColor(?Color $color) : void
+	public function setColor(Color|string|null $color) : void
 	{
-		$this->color = $color;
+		if($color instanceof Color)
+		{
+			$this->color = $color;
+			
+			return;
+		}
+		$this->color = new Color($color);
 	}
 	
 	

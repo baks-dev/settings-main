@@ -18,49 +18,43 @@
 
 namespace BaksDev\Settings\Main\Repository\SettingsMain;
 
-use BaksDev\Core\Repository\SettingsMain\SettingsMainInterface;
 use BaksDev\Settings\Main\Entity as EntitySettings;
 use BaksDev\Settings\Main\Type\Id\SettingsMainIdentificator;
 use BaksDev\Core\Type\Locale\Locale;
+use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Exception;
-use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
+use Symfony\Component\Cache\Adapter\ApcuAdapter;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[AsDecorator(SettingsMainInterface::class)]
 final class SettingsMain implements SettingsMainInterface
 {
 	private Connection $connection;
 	
-	private Locale $locale;
+	///private Locale $locale;
 	
 	private SettingsMainIdentificator $settingsMainIdentificator;
 	
-	private SettingsMainInterface $settingsMain;
+	//private SettingsMainInterface $settingsMain;
 	
 	
 	public function __construct(
-		SettingsMainInterface $settingsMain,
 		Connection $connection,
 		TranslatorInterface $translator,
 	)
 	{
-		$this->settingsMain = $settingsMain;
-		
 		$this->connection = $connection;
-		$this->locale = new Locale($translator->getLocale());
 		$this->settingsMainIdentificator = new SettingsMainIdentificator();
 	}
 	
 	
-	public function getSettingsMainAssociative() : array
+	public function getSettingsMainAssociative(string $domain, string $locale) : array
 	{
+
 		$qb = $this->connection->createQueryBuilder();
+	
+		$qb->setParameter('local', new Locale($locale), Locale::TYPE);
 		
-		$qb->select('event.color');
-		
-		// $qb->select('*');
-		
+		$qb->addSelect('event.color');
 		$qb->from(EntitySettings\SettingsMain::TABLE, 'main');
 		
 		$qb->join('main', EntitySettings\Event\SettingsMainEvent::TABLE, 'event', 'event.id = main.event');
@@ -69,27 +63,38 @@ final class SettingsMain implements SettingsMainInterface
 		$qb->addSelect('seo.title');
 		$qb->addSelect('seo.keywords');
 		$qb->addSelect('seo.description');
+		
 		$qb->join(
 			'main',
 			EntitySettings\Seo\SettingsMainSeo::TABLE,
 			'seo',
 			'seo.event = main.event and seo.local = :local'
 		);
-		$qb->setParameter('local', $this->locale, Locale::TYPE);
+		
 		
 		$qb->where('main.id = :main');
 		$qb->setParameter('main', $this->settingsMainIdentificator, SettingsMainIdentificator::TYPE);
 		
-		$settings = $qb->fetchAssociative();
 		
-		if(is_array($settings))
-		{
-			$settings['phone'] = $this->getPhone();
-			$settings['social'] = $this->getSocial();
-		}
+		/* Кешируем результат запроса DBAL */
+		$cache = new ApcuAdapter('SettingsMain');
 		
-		return $settings ?: $this->settingsMain->getSettingsMainAssociative();
+		$config = $this->connection->getConfiguration();
+		$config?->setResultCache($cache);
+		
+		return $this->connection->executeCacheQuery(
+			$qb->getSQL(),
+			$qb->getParameters(),
+			$qb->getParameterTypes(),
+			new QueryCacheProfile((60 * 60 * 24 * 30 * 12), $domain)
+		)->fetchAssociative();
+		
+		
 	}
+	
+	
+	
+	
 	
 	
 	public function getPhone()
@@ -103,10 +108,10 @@ final class SettingsMain implements SettingsMainInterface
 		
 		$qb->from(EntitySettings\SettingsMain::TABLE, 'main');
 		
-		$qb->leftJoin('main', EntitySettings\Phone\SettingsMainPhone::TABLE, 'phone', 'phone.event = main.event');
+		$qb->join('main', EntitySettings\Phone\SettingsMainPhone::TABLE, 'phone', 'phone.event = main.event');
 		
 		$qb->where('main.id = :main');
-		$qb->setParameter('main', $this->settingsMain, SettingsMainIdentificator::TYPE);
+		$qb->setParameter('main', $this->settingsMainIdentificator, SettingsMainIdentificator::TYPE);
 		
 		return $qb->fetchAllAssociative();
 		
@@ -126,7 +131,7 @@ final class SettingsMain implements SettingsMainInterface
 		$qb->join('main', EntitySettings\Social\SettingsMainSocial::TABLE, 'social', 'social.event = main.event');
 		
 		$qb->where('main.id = :main');
-		$qb->setParameter('main', $this->settingsMain, SettingsMainIdentificator::TYPE);
+		$qb->setParameter('main', $this->settingsMainIdentificator, SettingsMainIdentificator::TYPE);
 		
 		return $qb->fetchAllAssociative();
 		

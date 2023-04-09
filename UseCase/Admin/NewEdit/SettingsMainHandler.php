@@ -19,8 +19,10 @@ namespace BaksDev\Settings\Main\UseCase\Admin\NewEdit;
 
 use BaksDev\Settings\Main\Entity as EntitySettingsMain;
 use BaksDev\Settings\Main\Entity\Event\SettingsMainEventInterface;
+use BaksDev\Settings\Main\Messenger\SettingsMainMessage;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class SettingsMainHandler
@@ -31,17 +33,21 @@ final class SettingsMainHandler
 	
 	private LoggerInterface $logger;
 	
+	private MessageBusInterface $bus;
+	
 	
 	public function __construct(
 		EntityManagerInterface $entityManager,
 		ValidatorInterface $validator,
 		LoggerInterface $logger,
+		MessageBusInterface $bus,
 	
 	)
 	{
 		$this->entityManager = $entityManager;
 		$this->validator = $validator;
 		$this->logger = $logger;
+		$this->bus = $bus;
 	}
 	
 	
@@ -129,6 +135,10 @@ final class SettingsMainHandler
 		//dd($this->entityManager->getUnitOfWork());
 		
 		$this->entityManager->flush();
+		
+		/* Отправляем собыие в шину  */
+		$this->bus->dispatch(new SettingsMainMessage($SettingsMain->getId(), $SettingsMain->getEvent(), $command->getEvent()));
+		
 		
 		return $SettingsMain;
 	}

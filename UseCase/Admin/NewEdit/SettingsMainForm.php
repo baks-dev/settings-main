@@ -17,6 +17,7 @@
 
 namespace BaksDev\Settings\Main\UseCase\Admin\NewEdit;
 
+use BaksDev\Reference\Color\Form\ColorFieldForm;
 use BaksDev\Reference\Color\Type\Color;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\Phone\SettingsMainPhoneForm;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\Seo\SettingsMainSeoForm;
@@ -34,18 +35,12 @@ final class SettingsMainForm extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		
-		$builder->add('color', ChoiceType::class, [
+		
+		$builder->add('color', ColorFieldForm::class, [
 			'required' => false,
-			'placeholder' => 'placeholder.color',
-			'choices' => Color::cases(),
-			'choice_value' => function(?Color $color) {
-				return $color?->getValue();
-			},
-			'choice_label' => function(?Color $color) {
-				return $color?->getValue();
-			},
-			'translation_domain' => 'dictionary.color',
 		]);
+		
+		
 		
 		$builder->add('seo', CollectionType::class, [
 			'entry_type' => SettingsMainSeoForm::class,
