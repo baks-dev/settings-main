@@ -3,6 +3,7 @@
 namespace BaksDev\Settings\Main\Type\Social;
 
 use BaksDev\Core\Type\UidType\UidType;
+use Doctrine\DBAL\Types\Types;
 
 final class SettingsMainSocialType extends UidType
 {
@@ -14,7 +15,7 @@ final class SettingsMainSocialType extends UidType
 	
 	public function getName() : string
 	{
-		return SettingsMainSocialUid::TYPE;
+        return SettingsMainSocialUid::TYPE;
 	}
 	
 }

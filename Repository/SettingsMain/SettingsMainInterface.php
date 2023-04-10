@@ -25,6 +25,6 @@ namespace BaksDev\Settings\Main\Repository\SettingsMain;
 
 interface SettingsMainInterface
 {
-	public function getSettingsMainAssociative(string $domain, string $locale) : array;
+	public function getSettingsMainAssociative(string $domain, string $locale) : bool|array;
 	
 }

@@ -47,7 +47,7 @@ final class SettingsMain implements SettingsMainInterface
 	}
 	
 	
-	public function getSettingsMainAssociative(string $domain, string $locale) : array
+	public function getSettingsMainAssociative(string $domain, string $locale) : bool|array
 	{
 
 		$qb = $this->connection->createQueryBuilder();

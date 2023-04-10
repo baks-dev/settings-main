@@ -3,6 +3,7 @@
 namespace BaksDev\Settings\Main\Type\Phone;
 
 use BaksDev\Core\Type\UidType\UidType;
+use Doctrine\DBAL\Types\Types;
 
 final class SettingsMainPhoneType extends UidType
 {
@@ -14,7 +15,7 @@ final class SettingsMainPhoneType extends UidType
 	
 	public function getName() : string
 	{
-		return SettingsMainPhoneUid::TYPE;
+        return SettingsMainPhoneUid::TYPE;
 	}
 	
 }

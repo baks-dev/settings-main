@@ -46,32 +46,35 @@ use Twig\Environment;
 
 final class SettingsHeadersSubscriber implements EventSubscriberInterface
 {
-	private $twig;
-	
-	private SettingsMainInterface $getSettingsMain;
+    private $twig;
 
-	public function __construct(Environment $twig, SettingsMainInterface $getSettingsMain)
-	{
-		$this->twig = $twig;
-		$this->getSettingsMain = $getSettingsMain;
-	}
-	
-	public static function getSubscribedEvents()
-	{
-		return [
-			KernelEvents::REQUEST => ['onRequestEvent', -2],
-		];
-	}
-	
-	/** Метод применяет настройки заголовков title, description, keywords, tags */
-	public function onRequestEvent(RequestEvent $event) : void
-	{
-		$data = $this->getSettingsMain->getSettingsMainAssociative($event->getRequest()->getHost(), $event->getRequest()->getLocale());
-		
-		$globals = $this->twig->getGlobals();
-		$baks_settings = $globals['baks_settings'] ?? [];
-		$this->twig->addGlobal('baks_settings', array_replace_recursive($baks_settings, ['headers' => $data]) );
+    private SettingsMainInterface $getSettingsMain;
 
-	}
-	
+    public function __construct(Environment $twig, SettingsMainInterface $getSettingsMain)
+    {
+        $this->twig = $twig;
+        $this->getSettingsMain = $getSettingsMain;
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            KernelEvents::REQUEST => ['onRequestEvent', -2],
+        ];
+    }
+
+    /** Метод применяет настройки заголовков title, description, keywords, tags */
+    public function onRequestEvent(RequestEvent $event): void
+    {
+        $data = $this->getSettingsMain->getSettingsMainAssociative($event->getRequest()->getHost(), $event->getRequest()->getLocale());
+
+        if ($data) {
+
+            $globals = $this->twig->getGlobals();
+            $baks_settings = $globals['baks_settings'] ?? [];
+            $this->twig->addGlobal('baks_settings', array_replace_recursive($baks_settings, ['headers' => $data]));
+
+        }
+    }
+
 }
