@@ -18,72 +18,57 @@
 
 namespace BaksDev\Settings\Main\Controller\Admin;
 
+use BaksDev\Core\Controller\AbstractController;
+use BaksDev\Core\Services\Security\RoleSecurity;
 use BaksDev\Settings\Main\Entity as EntitySettingsMain;
 use BaksDev\Settings\Main\Repository\SettingsMainUpdate\SettingsMainUpdateInterface;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\SettingsMainDTO;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\SettingsMainForm;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\SettingsMainHandler;
-use BaksDev\Core\Controller\AbstractController;
-use BaksDev\Core\Services\Security\RoleSecurity;
-use BaksDev\Core\Type\Locale\Locale;
-use Symfony\Component\Cache\Adapter\ApcuAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[RoleSecurity(['ROLE_ADMIN', 'ROLE_SETTINGS_MAIN'])]
+#[RoleSecurity('ROLE_SETTINGS_MAIN')]
 final class SettingsController extends AbstractController
 {
-	#[Route('/admin/settings/main', name: 'admin.settings', methods: ['GET', 'POST'])]
-	public function index(
-		Request $request,
-		SettingsMainHandler $settingsMainHandler,
-		SettingsMainUpdateInterface $SettingsMainUpdate,
-	) : Response
-	{
-		
-		$SettingsMainDTO = new SettingsMainDTO();
-		
-		$Event = $SettingsMainUpdate->get();
-		if($Event)
-		{
-			$Event->getDto($SettingsMainDTO);
-		}
-		
-		$form = $this->createForm(SettingsMainForm::class, $SettingsMainDTO);
-		$form->handleRequest($request);
-		
-		if($form->isSubmitted())
-		{
-			if($form->has('settings_main'))
-			{
-				$SettingsMain = $settingsMainHandler->handle($SettingsMainDTO);
-				
-				if($SettingsMain instanceof EntitySettingsMain\SettingsMain)
-				{
+    #[Route('/admin/settings/main', name: 'admin.settings', methods: ['GET', 'POST'])]
+    public function index(
+        Request $request,
+        SettingsMainHandler $settingsMainHandler,
+        SettingsMainUpdateInterface $SettingsMainUpdate,
+    ): Response {
+        $SettingsMainDTO = new SettingsMainDTO();
 
-					$this->addFlash('admin.page', 'admin.success.update', 'settings.main');
-				}
-				else
-				{
-					$this->addFlash('danger', 'admin.danger.update', 'settings.main', $SettingsMain);
-				}
-			}
-			else
-			{
-				$this->addFlash('danger', 'admin.danger.update', 'settings.main', 'POST');
-			}
-			
-			return $this->redirectToRoute('SettingsMain:admin.settings');
-		}
-		
-		return $this->render(
-			[
-				'data' => null,
-				'form' => $form->createView(),
-			]
-		);
-		
-	}
-	
+        $Event = $SettingsMainUpdate->get();
+        if ($Event) {
+            $Event->getDto($SettingsMainDTO);
+        }
+
+        $form = $this->createForm(SettingsMainForm::class, $SettingsMainDTO);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->has('settings_main')) {
+                $SettingsMain = $settingsMainHandler->handle($SettingsMainDTO);
+
+                if ($SettingsMain instanceof EntitySettingsMain\SettingsMain) {
+                    $this->addFlash('admin.page', 'admin.success.update', 'settings.main');
+                } else {
+                    $this->addFlash('danger', 'admin.danger.update', 'settings.main', $SettingsMain);
+                }
+            } else {
+                $this->addFlash('danger', 'admin.danger.update', 'settings.main', 'POST');
+            }
+
+            return $this->redirectToRoute('SettingsMain:admin.settings');
+        }
+
+        return $this->render(
+            [
+                'data' => null,
+                'form' => $form->createView(),
+            ]
+        );
+    }
 }
