@@ -10,7 +10,6 @@
 $ composer require baks-dev/settings-main
 ```
 
-
 ## Дополнительно
 
 Установка файловых ресурсов в публичную директорию (javascript, css, image ...):
