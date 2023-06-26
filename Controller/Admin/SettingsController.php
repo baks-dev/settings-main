@@ -19,7 +19,7 @@
 namespace BaksDev\Settings\Main\Controller\Admin;
 
 use BaksDev\Core\Controller\AbstractController;
-use BaksDev\Core\Services\Security\RoleSecurity;
+use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
 use BaksDev\Settings\Main\Entity as EntitySettingsMain;
 use BaksDev\Settings\Main\Repository\SettingsMainUpdate\SettingsMainUpdateInterface;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\SettingsMainDTO;

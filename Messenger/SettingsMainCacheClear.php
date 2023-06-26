@@ -27,7 +27,6 @@ namespace BaksDev\Settings\Main\Messenger;
 
 use Symfony\Component\Cache\Adapter\ApcuAdapter;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Component\Cache\Exception\CacheException;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
@@ -37,7 +36,7 @@ final class SettingsMainCacheClear
 	public function __invoke(SettingsMainMessage $message)
 	{
 		/* Чистим кеш модуля */
-		$cache = new FilesystemAdapter('CacheSettingsMain');
+		$cache = new FilesystemAdapter('SettingsMain');
 		$cache->clear();
 		
 		/* Сбрасываем индивидуальный кеш */

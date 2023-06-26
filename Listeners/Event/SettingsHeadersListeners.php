@@ -23,28 +23,15 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Settings\Main\Event;
+namespace BaksDev\Settings\Main\Listeners\Event;
 
-
-use BaksDev\Core\Type\Locale\Locale;
-use BaksDev\Products\Category\Repository\AllCategory\AllCategoryInterface;
-use BaksDev\Products\Category\Repository\AllCategoryByMenu\AllCategoryByMenuInterface;
 use BaksDev\Settings\Main\Repository\SettingsMain\SettingsMainInterface;
-use Symfony\Component\Cache\Adapter\ApcuAdapter;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Symfony\Component\HttpKernel\Event\ViewEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
-
-//use App\Repository\ConferenceRepository;
-use Symfony\Contracts\Cache\ItemInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
-final class SettingsHeadersSubscriber implements EventSubscriberInterface
+#[AsEventListener(event: RequestEvent::class, priority: 1)]
+final class SettingsHeadersListeners
 {
     private $twig;
 
@@ -56,25 +43,16 @@ final class SettingsHeadersSubscriber implements EventSubscriberInterface
         $this->getSettingsMain = $getSettingsMain;
     }
 
-    public static function getSubscribedEvents()
-    {
-        return [
-            KernelEvents::REQUEST => ['onRequestEvent', -2],
-        ];
-    }
-
     /** Метод применяет настройки заголовков title, description, keywords, tags */
-    public function onRequestEvent(RequestEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         $data = $this->getSettingsMain->getSettingsMainAssociative($event->getRequest()->getHost(), $event->getRequest()->getLocale());
 
-        if ($data) {
-
+        if ($data)
+        {
             $globals = $this->twig->getGlobals();
             $baks_settings = $globals['baks_settings'] ?? [];
             $this->twig->addGlobal('baks_settings', array_replace_recursive($baks_settings, ['headers' => $data]));
-
         }
     }
-
 }

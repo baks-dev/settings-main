@@ -24,7 +24,7 @@ window.addEventListener('load', function () {
         /* Указываем метод соединения GET и путь к файлу на сервере */
         request.open('GET', urlForm);
         /* Указываем заголовки для сервера */
-        request.setRequestHeader('Content-Type', 'application/x-www-form-url');
+        //request.setRequestHeader('Content-Type', 'application/x-www-form-url');
         request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
         /* Получаем ответ от сервера на запрос*/
