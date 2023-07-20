@@ -35,7 +35,10 @@
 				</div>
 				
 				<div class="mb-3">
-					<input type="color" class="form-control form-control-color" id="color" value="#0000FF" title="Цвет">
+					<input type="color" class="form-control form-control-color"
+						   id="color"
+						   value="#{{ form.color.vars.data ?: '0000FF' }}"
+						   title="Цвет">
 				</div>
 				
 				{# <button type="button" class="btn  btn-light" aria-label="Close" style="width: 50 he">&nbsp;</button> #}

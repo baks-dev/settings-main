@@ -32,34 +32,38 @@ use Symfony\Component\Routing\Annotation\Route;
 #[RoleSecurity('ROLE_SETTINGS_MAIN')]
 final class SettingsController extends AbstractController
 {
+
     #[Route('/admin/settings/main', name: 'admin.settings', methods: ['GET', 'POST'])]
     public function index(
         Request $request,
         SettingsMainHandler $settingsMainHandler,
         SettingsMainUpdateInterface $SettingsMainUpdate,
-    ): Response {
+    ): Response
+    {
         $SettingsMainDTO = new SettingsMainDTO();
 
         $Event = $SettingsMainUpdate->get();
-        if ($Event) {
+        if($Event)
+        {
             $Event->getDto($SettingsMainDTO);
         }
 
         $form = $this->createForm(SettingsMainForm::class, $SettingsMainDTO);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            if ($form->has('settings_main')) {
-                $SettingsMain = $settingsMainHandler->handle($SettingsMainDTO);
+        if($form->isSubmitted() && $form->isValid() && $form->has('settings_main'))
+        {
 
-                if ($SettingsMain instanceof EntitySettingsMain\SettingsMain) {
-                    $this->addFlash('admin.page', 'admin.success.update', 'settings.main');
-                } else {
-                    $this->addFlash('danger', 'admin.danger.update', 'settings.main', $SettingsMain);
-                }
-            } else {
-                $this->addFlash('danger', 'admin.danger.update', 'settings.main', 'POST');
+            $SettingsMain = $settingsMainHandler->handle($SettingsMainDTO);
+
+            if($SettingsMain instanceof EntitySettingsMain\SettingsMain)
+            {
+                $this->addFlash('admin.page', 'admin.success.update', 'settings.main');
+
+                return $this->redirectToRoute('SettingsMain:admin.settings');
             }
+
+            $this->addFlash('danger', 'admin.danger.update', 'settings.main', $SettingsMain);
 
             return $this->redirectToRoute('SettingsMain:admin.settings');
         }
@@ -68,7 +72,7 @@ final class SettingsController extends AbstractController
             [
                 'data' => null,
                 'form' => $form->createView(),
-            ]
+            ],
         );
     }
 }

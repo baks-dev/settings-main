@@ -27,6 +27,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class SettingsMainHandler
 {
+
     private EntityManagerInterface $entityManager;
 
     private ValidatorInterface $validator;
@@ -35,25 +36,29 @@ final class SettingsMainHandler
 
     private MessageDispatchInterface $messageDispatch;
 
+
     public function __construct(
         EntityManagerInterface $entityManager,
         ValidatorInterface $validator,
         LoggerInterface $logger,
-        MessageDispatchInterface $messageDispatch
-    ) {
+        MessageDispatchInterface $messageDispatch,
+    )
+    {
         $this->entityManager = $entityManager;
         $this->validator = $validator;
         $this->logger = $logger;
         $this->messageDispatch = $messageDispatch;
     }
 
-    public function handle(
-        SettingsMainEventInterface $command,
-    ): EntitySettingsMain\SettingsMain|string {
-        /* Валидация */
+
+    public function handle(SettingsMainEventInterface $command): EntitySettingsMain\SettingsMain|string
+    {
+        /**
+         * Валидация SettingsMainEventInterface
+         */
         $errors = $this->validator->validate($command);
 
-        if (count($errors) > 0)
+        if(count($errors) > 0)
         {
             $uniqid = uniqid('', false);
             $errorsString = (string) $errors;
@@ -62,19 +67,19 @@ final class SettingsMainHandler
             return $uniqid;
         }
 
-        if ($command->getEvent())
+        if($command->getEvent())
         {
             $EventRepo = $this->entityManager->getRepository(EntitySettingsMain\Event\SettingsMainEvent::class)->find(
-                $command->getEvent()
+                $command->getEvent(),
             );
 
-            if ($EventRepo === null)
+            if($EventRepo === null)
             {
                 $uniqid = uniqid('', false);
                 $errorsString = sprintf(
                     'Not found %s by id: %s',
                     EntitySettingsMain\Event\SettingsMainEvent::class,
-                    $command->getEvent()
+                    $command->getEvent(),
                 );
                 $this->logger->error($uniqid.': '.$errorsString);
 
@@ -82,40 +87,36 @@ final class SettingsMainHandler
             }
 
             $Event = $EventRepo->cloneEntity();
-        } else
+        }
+        else
         {
             $Event = new EntitySettingsMain\Event\SettingsMainEvent();
         }
 
-        $Event->setEntity($command);
         $this->entityManager->clear();
-        //$this->entityManager->refresh();
-        $this->entityManager->persist($Event);
-
-        //
-        //        dump($command);
-        //        dd($Event);
+        $Event->setEntity($command);
 
         /* @var EntitySettingsMain\SettingsMain $SettingsMain */
-        if ($Event->getSetting())
+        if($Event->getSetting())
         {
             $SettingsMain = $this->entityManager->getRepository(EntitySettingsMain\SettingsMain::class)->findOneBy(
-                ['event' => $command->getEvent()]
+                ['event' => $command->getEvent()],
             );
 
-            if (empty($SettingsMain))
+            if(empty($SettingsMain))
             {
                 $uniqid = uniqid('', false);
                 $errorsString = sprintf(
                     'Not found %s by event: %s',
                     EntitySettingsMain\SettingsMain::class,
-                    $command->getEvent()
+                    $command->getEvent(),
                 );
                 $this->logger->error($uniqid.': '.$errorsString);
 
                 return $uniqid;
             }
-        } else
+        }
+        else
         {
             $SettingsMain = new EntitySettingsMain\SettingsMain();
             $this->entityManager->persist($SettingsMain);
@@ -124,16 +125,42 @@ final class SettingsMainHandler
 
         $SettingsMain->setEvent($Event); /* Обновляем событие */
 
-        //dd($this->entityManager->getUnitOfWork());
+        /**
+         * Валидация Event
+         */
+        $errors = $this->validator->validate($Event);
 
+        if(count($errors) > 0)
+        {
+            $uniqid = uniqid('', false);
+            $errorsString = (string) $errors;
+            $this->logger->error($uniqid.': '.$errorsString);
+
+            return $uniqid;
+        }
+
+        /**
+         * Валидация SettingsMain
+         */
+        $errors = $this->validator->validate($SettingsMain);
+
+        if(count($errors) > 0)
+        {
+            $uniqid = uniqid('', false);
+            $errorsString = (string) $errors;
+            $this->logger->error($uniqid.': '.$errorsString);
+
+            return $uniqid;
+        }
+
+        $this->entityManager->persist($Event);
         $this->entityManager->flush();
 
         /* Отправляем сообщение в шину */
         $this->messageDispatch->dispatch(
             message: new SettingsMainMessage($SettingsMain->getId(), $SettingsMain->getEvent(), $command->getEvent()),
-            transport: 'settings_main'
+            transport: 'settings_main',
         );
-
 
         return $SettingsMain;
     }

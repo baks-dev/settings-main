@@ -17,14 +17,15 @@
 
 namespace BaksDev\Settings\Main\UseCase\Admin\NewEdit;
 
+use BaksDev\Core\Type\Locale\Locale;
 use BaksDev\Reference\Color\Type\Color;
 use BaksDev\Reference\Color\Type\ColorEnum;
+use BaksDev\Reference\Color\Type\Colors\Blue;
 use BaksDev\Settings\Main\Entity\Event\SettingsMainEventInterface;
 use BaksDev\Settings\Main\Type\Event\SettingsMainEventUid;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\Phone\SettingsMainPhoneDTO;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\Seo\SettingsMainSeoDTO;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\Social\SettingsMainSocialDTO;
-use BaksDev\Core\Type\Locale\Locale;
 use Doctrine\Common\Collections\ArrayCollection;
 
 //use BaksDev\Core\Type\Reference\Color\Color;
@@ -51,7 +52,7 @@ final class SettingsMainDTO implements SettingsMainEventInterface
 	private ?string $logo;
 	
 	
-	public function __construct(?Color $color = new Color(ColorEnum::BLUE))
+	public function __construct(?Color $color = new Color(new Blue()))
 	{
 		$this->phone = new ArrayCollection();
 		$this->seo = new ArrayCollection();

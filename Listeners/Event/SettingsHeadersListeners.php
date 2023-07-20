@@ -30,7 +30,7 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Twig\Environment;
 
-#[AsEventListener(event: RequestEvent::class, priority: 1)]
+#[AsEventListener(event: RequestEvent::class)]
 final class SettingsHeadersListeners
 {
     private $twig;
@@ -53,6 +53,7 @@ final class SettingsHeadersListeners
             $globals = $this->twig->getGlobals();
             $baks_settings = $globals['baks_settings'] ?? [];
             $this->twig->addGlobal('baks_settings', array_replace_recursive($baks_settings, ['headers' => $data]));
+            
         }
     }
 }
