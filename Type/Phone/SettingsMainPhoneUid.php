@@ -10,7 +10,7 @@ final class SettingsMainPhoneUid
 {
     public const TEST = '0188a9a4-963e-753a-8325-0305b85d8509';
     
-	public const TYPE = 'settings_main_social_id';
+	public const TYPE = 'settings_main_social';
 	
 	private Uuid $value;
 	
