@@ -159,7 +159,7 @@ final class SettingsMainHandler
         /* Отправляем сообщение в шину */
         $this->messageDispatch->dispatch(
             message: new SettingsMainMessage($SettingsMain->getId(), $SettingsMain->getEvent(), $command->getEvent()),
-            transport: 'settings_main',
+            transport: 'settings-main',
         );
 
         return $SettingsMain;

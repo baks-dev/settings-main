@@ -22,13 +22,12 @@ use Symfony\Config\FrameworkConfig;
 
 return static function (FrameworkConfig $framework) {
 
-    /** Транспорт заказов */
     $messenger = $framework->messenger();
 
     $messenger
-        ->transport('settings_main')
+        ->transport('settings-main')
         ->dsn('%env(MESSENGER_TRANSPORT_DSN)%')
-        ->options(['queue_name' => 'settings_main'])
+        ->options(['queue_name' => 'settings-main'])
         ->retryStrategy()
         ->maxRetries(5)
         ->delay(1000)

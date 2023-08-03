@@ -20,10 +20,11 @@ namespace BaksDev\Settings\Main\Controller\Admin\Tests;
 
 use BaksDev\Users\User\Tests\TestUserAccount;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group settings-main
+/** @group settings-main
  */
+#[When(env: 'test')]
 final class SettingsControllerTest extends WebTestCase
 {
     private const URL = '/admin/settings/main';

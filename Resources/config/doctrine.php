@@ -18,14 +18,14 @@ return static function(ContainerConfigurator $container, DoctrineConfig $doctrin
 	$doctrine->dbal()->type(SettingsMainEventUid::TYPE)->class(SettingsMainEventType::class);
 	$doctrine->dbal()->type(SettingsMainPhoneUid::TYPE)->class(SettingsMainPhoneType::class);
 	$doctrine->dbal()->type(SettingsMainSocialUid::TYPE)->class(SettingsMainSocialType::class);
-	
-	$emDefault = $doctrine->orm()->entityManager('default');
-	
-	$emDefault->autoMapping(true);
-	
-	$emDefault->mapping('SettingsMain')
+
+    $emDefault = $doctrine->orm()->entityManager('default')->autoMapping(true);
+
+    $MODULE = substr(__DIR__, 0, strpos(__DIR__, "Resources"));
+
+    $emDefault->mapping('SettingsMain')
 		->type('attribute')
-		->dir(__DIR__.'/../../Entity')
+		->dir($MODULE.'Entity')
 		->isBundle(false)
 		->prefix('BaksDev\Settings\Main\Entity')
 		->alias('SettingsMain')

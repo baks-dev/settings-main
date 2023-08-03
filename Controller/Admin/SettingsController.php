@@ -27,8 +27,10 @@ use BaksDev\Settings\Main\UseCase\Admin\NewEdit\SettingsMainForm;
 use BaksDev\Settings\Main\UseCase\Admin\NewEdit\SettingsMainHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[AsController]
 #[RoleSecurity('ROLE_SETTINGS_MAIN')]
 final class SettingsController extends AbstractController
 {
