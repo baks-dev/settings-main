@@ -32,13 +32,12 @@ final class SettingsMain implements SettingsMainInterface
         DBALQueryBuilder $DBALQueryBuilder,
     )
     {
-
         $this->settingsMainIdentificator = new SettingsMainIdentificator();
         $this->DBALQueryBuilder = $DBALQueryBuilder;
     }
 
 
-    public function getSettingsMainAssociative(string $domain, string $locale): bool|array
+    public function getSettingsMainAssociative(string $domain, string $locale): ?array
     {
 
         $qb = $this->DBALQueryBuilder->createQueryBuilder(self::class);

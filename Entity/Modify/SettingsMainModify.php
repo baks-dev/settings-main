@@ -39,24 +39,24 @@ class SettingsMainModify extends EntityEvent
 	private DateTimeImmutable $modDate;
 	
 	/** ID пользователя  */
-	#[ORM\Column(name: 'user_id', type: UserUid::TYPE, nullable: true)]
-	protected ?UserUid $user = null;
+	#[ORM\Column(type: UserUid::TYPE, nullable: true)]
+	protected ?UserUid $usr = null;
 	
 	/** Ip адрес */
-	#[ORM\Column(name: 'user_ip', type: IpAddress::TYPE, nullable: false)]
-	protected IpAddress $ipAddress;
+	#[ORM\Column(type: IpAddress::TYPE, nullable: false)]
+	protected IpAddress $ip;
 	
 	/** User-agent */
-	#[ORM\Column(name: 'user_agent', type: Types::TEXT, nullable: false)]
-	protected string $userAgent;
+	#[ORM\Column(type: Types::TEXT, nullable: false)]
+	protected string $agent;
 	
 	
 	public function __construct(SettingsMainEvent $event)
 	{
 		$this->event = $event;
 		$this->modDate = new DateTimeImmutable();
-		$this->ipAddress = new IpAddress('127.0.0.1');
-		$this->userAgent = 'console';
+		$this->ip = new IpAddress('127.0.0.1');
+		$this->agent = 'console';
 		$this->action = new ModifyAction(ModifyActionEnum::NEW);
 	}
 	
@@ -65,8 +65,8 @@ class SettingsMainModify extends EntityEvent
 	{
 		$this->modDate = new DateTimeImmutable();
 		$this->action = new ModifyAction(ModifyActionEnum::UPDATE);
-		$this->ipAddress = new IpAddress('127.0.0.1');
-		$this->userAgent = 'console';
+		$this->ip = new IpAddress('127.0.0.1');
+		$this->agent = 'console';
 	}
 	
 	
@@ -92,17 +92,17 @@ class SettingsMainModify extends EntityEvent
 	}
 	
 	
-	public function upModifyAgent(IpAddress $ipAddress, ?string $userAgent) : void
+	public function upModifyAgent(IpAddress $ip, ?string $agent) : void
 	{
-		$this->ipAddress = $ipAddress;
-		$this->userAgent = $userAgent ?: 'console';
+		$this->ip = $ip;
+		$this->agent = $agent ?: 'console';
 		$this->modDate = new DateTimeImmutable();
 	}
 	
 	
-	public function setUser(UserUid|User|null $user) : void
+	public function setUsr(UserUid|User|null $usr) : void
 	{
-		$this->user = $user instanceof User ? $user->getId() : $user;
+		$this->usr = $usr instanceof User ? $usr->getId() : $usr;
 	}
 	
 	

@@ -9,10 +9,10 @@ use BaksDev\Users\User\Type\Id\UserUid;
 
 interface SettingsMainModifyInterface
 {
-	public function upModifyAgent(IpAddress $ipAddress, ?string $userAgent) : void;
+	public function upModifyAgent(IpAddress $ip, ?string $agent) : void;
 	
 	
-	public function setUser(UserUid|User|null $user) : void;
+	public function setUsr(UserUid|User|null $usr) : void;
 	
 	
 	public function equals(ModifyActionEnum $action) : bool;
