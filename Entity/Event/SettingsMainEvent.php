@@ -2,8 +2,10 @@
 
 namespace BaksDev\Settings\Main\Entity\Event;
 
+use BaksDev\Core\Entity\EntityEvent;
+use BaksDev\Core\Type\Modify\ModifyAction;
+use BaksDev\Core\Type\Modify\ModifyActionEnum;
 use BaksDev\Reference\Color\Type\Color;
-
 use BaksDev\Settings\Main\Entity\Modify\SettingsMainModify;
 use BaksDev\Settings\Main\Entity\Phone\SettingsMainPhone;
 use BaksDev\Settings\Main\Entity\Seo\SettingsMainSeo;
@@ -11,11 +13,6 @@ use BaksDev\Settings\Main\Entity\SettingsMain;
 use BaksDev\Settings\Main\Entity\Social\SettingsMainSocial;
 use BaksDev\Settings\Main\Type\Event\SettingsMainEventUid;
 use BaksDev\Settings\Main\Type\Id\SettingsMainIdentificator;
-
-use BaksDev\Core\Entity\EntityEvent;
-use BaksDev\Core\Type\Modify\ModifyAction;
-use BaksDev\Core\Type\Modify\ModifyActionEnum;
-
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
@@ -69,62 +66,51 @@ class SettingsMainEvent extends EntityEvent
 	
 	public function __clone()
 	{
-		$this->id = new SettingsMainEventUid();
+        $this->id = clone $this->id;
 	}
-	
-	
-	/**
-	 * @return SettingsMainEventUid
-	 */
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
+    }
+
 	public function getId() : SettingsMainEventUid
 	{
 		return $this->id;
 	}
-	
-	
-	/**
-	 * @return ?SettingsMainIdentificator
-	 */
+
 	public function getSetting() : ?SettingsMainIdentificator
 	{
 		return $this->setting;
 	}
 	
-	
-	/** Присваиваем идентификатор агрегата */
-	
+
 	public function setSetting(SettingsMain|SettingsMainIdentificator $setting) : void
 	{
 		$this->setting = $setting instanceof SettingsMain ? $setting->getId() : $setting;
 	}
-	
-	
-	/** Сверяем статус модификатора события */
-	
+
 	public function isModifyActionEquals(ModifyActionEnum $action) : bool
 	{
 		return $this->modify->equals($action);
 	}
 	
-	
-	/** Присваиваем свойствам DTO значения из объекта сущности */
-	
-	public function getDto($dto) : mixed
+
+	public function getDto($dto): mixed
 	{
-		if($dto instanceof SettingsMainEventInterface)
+        $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;
+
+		if($dto instanceof SettingsMainEventInterface || $dto instanceof self)
 		{
 			return parent::getDto($dto);
 		}
 		
 		throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
 	}
-	
-	
-	/** Присваиваем свойствам сущности значения из объекта DTO */
-	
-	public function setEntity($dto) : mixed
+
+	public function setEntity($dto): mixed
 	{
-		if($dto instanceof SettingsMainEventInterface)
+		if($dto instanceof SettingsMainEventInterface || $dto instanceof self)
 		{
 			return parent::setEntity($dto);
 		}

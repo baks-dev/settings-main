@@ -2,7 +2,9 @@
 
 namespace BaksDev\Settings\Main\Type\Event;
 
+use App\Kernel;
 use BaksDev\Core\Type\UidType\Uid;
+use Symfony\Component\Uid\AbstractUid;
 
 final class SettingsMainEventUid extends Uid
 {

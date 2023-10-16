@@ -18,9 +18,9 @@
 
 namespace BaksDev\Settings\Main\Entity\Seo;
 
-use BaksDev\Settings\Main\Entity\Event\SettingsMainEvent;
 use BaksDev\Core\Entity\EntityEvent;
 use BaksDev\Core\Type\Locale\Locale;
+use BaksDev\Settings\Main\Entity\Event\SettingsMainEvent;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
@@ -59,12 +59,17 @@ class SettingsMainSeo extends EntityEvent
 	{
 		$this->event = $event;
 	}
+
+    public function __toString(): string
+    {
+        return (string) $this->event;
+    }
 	
-	
-	/** Присваиваем свойствам DTO значения из объекта сущности */
-	
-	public function getDto($dto) : mixed
+
+	public function getDto($dto): mixed
 	{
+        $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;
+
 		if($dto instanceof SettingsMainSeoInterface)
 		{
 			return parent::getDto($dto);
@@ -72,11 +77,8 @@ class SettingsMainSeo extends EntityEvent
 		
 		throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
 	}
-	
-	
-	/** Присваиваем свойствам сущности значения из объекта DTO */
-	
-	public function setEntity($dto) : mixed
+
+	public function setEntity($dto): mixed
 	{
 		if($dto instanceof SettingsMainSeoInterface)
 		{

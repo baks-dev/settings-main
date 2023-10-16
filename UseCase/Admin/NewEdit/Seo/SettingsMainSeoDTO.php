@@ -19,6 +19,7 @@ namespace BaksDev\Settings\Main\UseCase\Admin\NewEdit\Seo;
 
 use BaksDev\Settings\Main\Entity\Seo\SettingsMainSeoInterface;
 use BaksDev\Core\Type\Locale\Locale;
+use ReflectionProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class SettingsMainSeoDTO implements SettingsMainSeoInterface
@@ -45,22 +46,19 @@ final class SettingsMainSeoDTO implements SettingsMainSeoInterface
 	private ?string $description = null;
 	
 	/** Локаль  */
-	/**
-	 * @return Locale
-	 */
+
 	public function getLocal() : Locale
 	{
 		return $this->local;
 	}
-	
-	
-	/**
-	 * @param string|Locale $local
-	 */
-	public function setLocal(string $local) : void
-	{
-		$this->local = new Locale($local);
-	}
+
+    public function setLocal(Locale|string $local) : void
+    {
+        if(!(new ReflectionProperty(self::class, 'local'))->isInitialized($this))
+        {
+            $this->local = $local instanceof Locale ? $local : new Locale($local);
+        }
+    }
 	
 	
 	/** Title  */

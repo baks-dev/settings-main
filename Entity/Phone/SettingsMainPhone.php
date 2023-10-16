@@ -2,16 +2,11 @@
 
 namespace BaksDev\Settings\Main\Entity\Phone;
 
+use BaksDev\Core\Entity\EntityEvent;
 use BaksDev\Settings\Main\Entity\Event\SettingsMainEvent;
 use BaksDev\Settings\Main\Type\Phone\SettingsMainPhoneUid;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
-
-use BaksDev\Core\Entity\EntityEvent;
-use BaksDev\Core\Type\Modify\ModifyAction;
-use BaksDev\Core\Type\Modify\ModifyActionEnum;
-
-use Exception;
+use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 
 /* SettingsMainPhone */
@@ -55,37 +50,35 @@ class SettingsMainPhone extends EntityEvent
 	
 	public function __clone()
 	{
-		$this->id = new SettingsMainPhoneUid();
+        $this->id = clone $this->id;
 	}
-	
-	
-	/**
-	 * @return SettingsMainPhoneUid
-	 */
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
+    }
+
 	public function getId() : SettingsMainPhoneUid
 	{
 		return $this->id;
 	}
 	
-	
-	/** Присваиваем свойствам DTO значения из объекта сущности */
-	
-	public function getDto($dto) : mixed
+
+	public function getDto($dto): mixed
 	{
-		if($dto instanceof SettingsMainPhoneInterface)
+        $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;
+
+		if($dto instanceof SettingsMainPhoneInterface || $dto instanceof self)
 		{
 			return parent::getDto($dto);
 		}
 		
 		throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
 	}
-	
-	
-	/** Присваиваем свойствам сущности значения из объекта DTO */
-	
-	public function setEntity($dto) : mixed
+
+	public function setEntity($dto): mixed
 	{
-		if($dto instanceof SettingsMainPhoneInterface)
+		if($dto instanceof SettingsMainPhoneInterface || $dto instanceof self)
 		{
 			return parent::setEntity($dto);
 		}

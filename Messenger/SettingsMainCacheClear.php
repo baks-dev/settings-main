@@ -29,7 +29,7 @@ use BaksDev\Core\Cache\AppCacheInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-#[AsMessageHandler(fromTransport: 'sync')]
+#[AsMessageHandler]
 final class SettingsMainCacheClear
 {
     private AppCacheInterface $cache;
@@ -49,6 +49,6 @@ final class SettingsMainCacheClear
 		$cache = $this->cache->init('SettingsMain');
 		$cache->clear();
 
-        $this->messageDispatchLogger->info('Очистили кеш SettingsMain', [__LINE__ => __FILE__]);
+        $this->messageDispatchLogger->info('Очистили кеш SettingsMain', [__FILE__.':'.__LINE__]);
 	}
 }

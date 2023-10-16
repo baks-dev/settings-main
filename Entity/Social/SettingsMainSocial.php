@@ -63,16 +63,19 @@ class SettingsMainSocial extends EntityEvent
 	
 	public function __clone() : void
 	{
-		$this->id = new SettingsMainSocialUid();
+        $this->id = clone $this->id;
 	}
-	
+
+    public function __toString(): string
+    {
+        return (string) $this->id;
+    }
 	
 	public function setSettings(SettingsMainEvent|SettingsMainEventUid $event) : void
 	{
 		$this->event = $event instanceof SettingsMainEvent ? $event->getId() : $event;
 	}
-	
-	
+
 	public function addSocial(string $href, string $title, ?string $icon = null) : void
 	{
 		$this->href = $href;

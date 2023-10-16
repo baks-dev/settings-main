@@ -2,7 +2,9 @@
 
 namespace BaksDev\Settings\Main\Type\Social;
 
+use App\Kernel;
 use BaksDev\Core\Type\UidType\Uid;
+use Symfony\Component\Uid\AbstractUid;
 
 final class SettingsMainSocialUid extends Uid
 {

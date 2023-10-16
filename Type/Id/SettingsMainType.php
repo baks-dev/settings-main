@@ -24,19 +24,19 @@ use Doctrine\DBAL\Types\StringType;
 final class SettingsMainType extends StringType
 {
 	
-	public function convertToDatabaseValue($value, AbstractPlatform $platform) : mixed
+	public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
 	{
 		return $value instanceof SettingsMainIdentificator ? $value->getValue() : $value;
 	}
 	
 	
-	public function convertToPHPValue($value, AbstractPlatform $platform) : mixed
+	public function convertToPHPValue($value, AbstractPlatform $platform): mixed
 	{
 		return !empty($value) ? new SettingsMainIdentificator() : $value;
 	}
 	
 	
-	public function getName() : string
+	public function getName(): string
 	{
 		return SettingsMainIdentificator::TYPE;
 	}
