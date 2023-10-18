@@ -1,7 +1,7 @@
 {
   "namespaces": [
     {
-      "namespace": "SettingsMain",
+      "namespace": "settings-main",
       "path": "Resources/view"
     }
   ]

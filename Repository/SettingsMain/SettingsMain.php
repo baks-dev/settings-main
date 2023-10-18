@@ -67,7 +67,7 @@ final class SettingsMain implements SettingsMainInterface
 
 
         /* Кешируем результат DBAL */
-        return $qb->enableCache('SettingsMain', 84600)->fetchAssociative();
+        return $qb->enableCache('settings-main', 84600)->fetchAssociative();
 
     }
 

@@ -144,6 +144,11 @@ final class SettingsMainDTO implements SettingsMainEventInterface
 	
 	public function addSeo(SettingsMainSeoDTO $seo) : void
 	{
+        if(empty($seo->getLocal()->getLocalValue()))
+        {
+            return;
+        }
+
 		$this->seo->add($seo);
 	}
 	

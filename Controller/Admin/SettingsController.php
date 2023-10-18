@@ -62,12 +62,12 @@ final class SettingsController extends AbstractController
             {
                 $this->addFlash('admin.page', 'admin.success.update', 'settings.main');
 
-                return $this->redirectToRoute('SettingsMain:admin.settings');
+                return $this->redirectToRoute('settings-main:admin.settings');
             }
 
             $this->addFlash('danger', 'admin.danger.update', 'settings.main', $SettingsMain);
 
-            return $this->redirectToRoute('SettingsMain:admin.settings');
+            return $this->redirectToRoute('settings-main:admin.settings');
         }
 
         return $this->render(
