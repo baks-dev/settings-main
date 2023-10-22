@@ -34,8 +34,7 @@
 	
 	</div>
 	
-	{# {{ dd(include(_self|replace({ "_social.html.twig": "prototype/social.html.twig" } ), { social : form.social.vars.prototype })|e('html_attr') ) }} #}
-	
+
 	<div class="card-footer border-light bg-body">
 		<button type="button" id="social_addCollection" class="btn btn-sm btn-light-primary"
 				data-prototype="{{ include(_self|replace({ "_social.html.twig": "prototype/social.html.twig" } ), { social : form.social.vars.prototype })|e('html_attr') }}"
