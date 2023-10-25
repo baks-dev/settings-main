@@ -3,7 +3,8 @@
 namespace BaksDev\Settings\Main\Entity\Modify;
 
 use BaksDev\Core\Type\Ip\IpAddress;
-use BaksDev\Core\Type\Modify\ModifyActionEnum;
+use BaksDev\Core\Type\Modify\Modify\ModifyActionNew;
+use BaksDev\Core\Type\Modify\Modify\ModifyActionUpdate;
 use BaksDev\Users\User\Entity\User;
 use BaksDev\Users\User\Type\Id\UserUid;
 

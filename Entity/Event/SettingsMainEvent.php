@@ -4,7 +4,8 @@ namespace BaksDev\Settings\Main\Entity\Event;
 
 use BaksDev\Core\Entity\EntityEvent;
 use BaksDev\Core\Type\Modify\ModifyAction;
-use BaksDev\Core\Type\Modify\ModifyActionEnum;
+use BaksDev\Core\Type\Modify\Modify\ModifyActionNew;
+use BaksDev\Core\Type\Modify\Modify\ModifyActionUpdate;
 use BaksDev\Reference\Color\Type\Color;
 use BaksDev\Settings\Main\Entity\Modify\SettingsMainModify;
 use BaksDev\Settings\Main\Entity\Phone\SettingsMainPhone;
@@ -60,7 +61,7 @@ class SettingsMainEvent extends EntityEvent
 	public function __construct()
 	{
 		$this->id = new SettingsMainEventUid();
-		$this->modify = new SettingsMainModify($this, new ModifyAction(ModifyActionEnum::NEW));
+		$this->modify = new SettingsMainModify($this, new ModifyAction(ModifyActionNew::class));
 	}
 	
 	

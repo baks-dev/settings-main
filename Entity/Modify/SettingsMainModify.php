@@ -5,7 +5,8 @@ namespace BaksDev\Settings\Main\Entity\Modify;
 use BaksDev\Core\Entity\EntityEvent;
 use BaksDev\Core\Type\Ip\IpAddress;
 use BaksDev\Core\Type\Modify\ModifyAction;
-use BaksDev\Core\Type\Modify\ModifyActionEnum;
+use BaksDev\Core\Type\Modify\Modify\ModifyActionNew;
+use BaksDev\Core\Type\Modify\Modify\ModifyActionUpdate;
 use BaksDev\Settings\Main\Entity\Event\SettingsMainEvent;
 use BaksDev\Users\User\Entity\User;
 use BaksDev\Users\User\Type\Id\UserUid;
@@ -57,14 +58,14 @@ class SettingsMainModify extends EntityEvent
 		$this->modDate = new DateTimeImmutable();
 		$this->ip = new IpAddress('127.0.0.1');
 		$this->agent = 'console';
-		$this->action = new ModifyAction(ModifyActionEnum::NEW);
+		$this->action = new ModifyAction(ModifyActionNew::class);
 	}
 	
 	
 	public function __clone() : void
 	{
 		$this->modDate = new DateTimeImmutable();
-		$this->action = new ModifyAction(ModifyActionEnum::UPDATE);
+		$this->action = new ModifyAction(ModifyActionUpdate::class);
 		$this->ip = new IpAddress('127.0.0.1');
 		$this->agent = 'console';
 	}
