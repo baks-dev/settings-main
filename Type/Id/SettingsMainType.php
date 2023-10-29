@@ -26,7 +26,7 @@ final class SettingsMainType extends StringType
 	
 	public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
 	{
-		return $value instanceof SettingsMainIdentificator ? $value->getValue() : $value;
+		return (string) $value;
 	}
 	
 	

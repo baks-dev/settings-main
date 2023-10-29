@@ -91,11 +91,6 @@ class SettingsMainEvent extends EntityEvent
 		$this->setting = $setting instanceof SettingsMain ? $setting->getId() : $setting;
 	}
 
-	public function isModifyActionEquals(ModifyActionEnum $action) : bool
-	{
-		return $this->modify->equals($action);
-	}
-	
 
 	public function getDto($dto): mixed
 	{

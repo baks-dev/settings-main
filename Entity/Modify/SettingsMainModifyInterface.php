@@ -16,6 +16,6 @@ interface SettingsMainModifyInterface
 	public function setUsr(UserUid|User|null $usr) : void;
 	
 	
-	public function equals(ModifyActionEnum $action) : bool;
+	public function equals(mixed $action) : bool;
 	
 }
