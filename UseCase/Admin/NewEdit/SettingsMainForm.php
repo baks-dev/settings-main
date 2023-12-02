@@ -32,16 +32,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class SettingsMainForm extends AbstractType
 {
 	
-	public function buildForm(FormBuilderInterface $builder, array $options)
-	{
-		
-		
+	public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
 		$builder->add('color', ColorFieldForm::class, [
 			'required' => false,
 		]);
-		
-		
-		
+
 		$builder->add('seo', CollectionType::class, [
 			'entry_type' => SettingsMainSeoForm::class,
 			'entry_options' => ['label' => false],
@@ -81,8 +77,8 @@ final class SettingsMainForm extends AbstractType
 	}
 	
 	
-	public function configureOptions(OptionsResolver $resolver)
-	{
+	public function configureOptions(OptionsResolver $resolver): void
+    {
 		$resolver->setDefaults
 		(
 			[
