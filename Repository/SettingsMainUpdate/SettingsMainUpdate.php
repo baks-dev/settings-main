@@ -2,38 +2,50 @@
 
 namespace BaksDev\Settings\Main\Repository\SettingsMainUpdate;
 
-use BaksDev\Settings\Main\Entity as EntitySettingsMain;
+
+use BaksDev\Core\Doctrine\ORMQueryBuilder;
+use BaksDev\Settings\Main\Entity\Event\SettingsMainEvent;
+use BaksDev\Settings\Main\Entity\SettingsMain;
 use BaksDev\Settings\Main\Type\Id\SettingsMainIdentificator;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class SettingsMainUpdate implements SettingsMainUpdateInterface
 {
-	
-	private EntityManagerInterface $entityManager;
-	
-	private SettingsMainIdentificator $id;
-	
-	
-	public function __construct(EntityManagerInterface $entityManager)
-	{
-		$this->entityManager = $entityManager;
-		$this->id = new SettingsMainIdentificator();
-	}
-	
-	
-	public function get() : ?EntitySettingsMain\Event\SettingsMainEvent
-	{
-		$qb = $this->entityManager->createQueryBuilder();
-		
-		$qb->select('event');
-		$qb->from(EntitySettingsMain\SettingsMain::class, 'settings');
-		$qb->join(EntitySettingsMain\Event\SettingsMainEvent::class, 'event', 'WITH', 'event.id = settings.event');
-		
-		$qb->where('settings.id = :settings');
-		$qb->setParameter(':settings', $this->id, SettingsMainIdentificator::TYPE);
-		
-		return $qb->getQuery()->getOneOrNullResult();
-		
-	}
-	
+
+    //private EntityManagerInterface $entityManager;
+
+    private SettingsMainIdentificator $id;
+    private ORMQueryBuilder $ORMQueryBuilder;
+
+
+    public function __construct(ORMQueryBuilder $ORMQueryBuilder)
+    {
+        $this->id = new SettingsMainIdentificator();
+        $this->ORMQueryBuilder = $ORMQueryBuilder;
+    }
+
+
+    public function get(): ?SettingsMainEvent
+    {
+        $qb = $this->ORMQueryBuilder->createQueryBuilder(self::class);
+
+        $qb
+            ->from(SettingsMain::class, 'settings')
+            ->where('settings.id = :settings')
+            ->setParameter(':settings', $this->id, SettingsMainIdentificator::TYPE);
+
+        $qb
+            ->select('event')
+            ->join(
+                SettingsMainEvent::class,
+                'event',
+                'WITH',
+                'event.id = settings.event'
+            );
+
+
+        return $qb->getOneOrNullResult();
+
+    }
+
 }

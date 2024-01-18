@@ -25,7 +25,7 @@ declare(strict_types=1);
 
 namespace BaksDev\Settings\Main\Listeners\Event;
 
-use BaksDev\Settings\Main\Repository\SettingsMain\SettingsMainInterface;
+use BaksDev\Core\Repository\SettingsMain\SettingsMainInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Twig\Environment;
@@ -35,18 +35,18 @@ final class SettingsHeadersListeners
 {
     private $twig;
 
-    private SettingsMainInterface $getSettingsMain;
+    private SettingsMainInterface $settingsMain;
 
-    public function __construct(Environment $twig, SettingsMainInterface $getSettingsMain)
+    public function __construct(Environment $twig, SettingsMainInterface $settingsMain)
     {
         $this->twig = $twig;
-        $this->getSettingsMain = $getSettingsMain;
+        $this->settingsMain = $settingsMain;
     }
 
     /** Метод применяет настройки заголовков title, description, keywords, tags */
     public function onKernelRequest(RequestEvent $event): void
     {
-        $data = $this->getSettingsMain->getSettingsMainAssociative($event->getRequest()->getHost(), $event->getRequest()->getLocale());
+        $data = $this->settingsMain->getSettingsMainAssociative($event->getRequest()->getHost(), $event->getRequest()->getLocale());
 
         if ($data)
         {

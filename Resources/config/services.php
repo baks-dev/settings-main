@@ -2,6 +2,9 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use BaksDev\Core\Repository\SettingsMain\SettingsMainInterface;
+use BaksDev\Settings\Main\Repository\SettingsMain\SettingsMainRepository;
+
 return static function(ContainerConfigurator $configurator) {
 
     $services = $configurator->services()
@@ -15,5 +18,7 @@ return static function(ContainerConfigurator $configurator) {
 
     $services->load($NAMESPACE, $MODULE)
         ->exclude($MODULE.'{Entity,Resources,Type,*DTO.php,*Message.php}');
+
+    $services->alias(SettingsMainInterface::class.' $settingsMain', SettingsMainRepository::class);
 
 };
