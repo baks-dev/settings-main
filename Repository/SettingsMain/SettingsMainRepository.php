@@ -20,8 +20,6 @@ namespace BaksDev\Settings\Main\Repository\SettingsMain;
 
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Core\Repository\SettingsMain\SettingsMainInterface;
-use BaksDev\Core\Type\Locale\Locale;
-
 use BaksDev\Settings\Main\Entity\Event\SettingsMainEvent;
 use BaksDev\Settings\Main\Entity\Phone\SettingsMainPhone;
 use BaksDev\Settings\Main\Entity\Seo\SettingsMainSeo;

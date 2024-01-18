@@ -7,7 +7,6 @@ use BaksDev\Core\Doctrine\ORMQueryBuilder;
 use BaksDev\Settings\Main\Entity\Event\SettingsMainEvent;
 use BaksDev\Settings\Main\Entity\SettingsMain;
 use BaksDev\Settings\Main\Type\Id\SettingsMainIdentificator;
-use Doctrine\ORM\EntityManagerInterface;
 
 final class SettingsMainUpdate implements SettingsMainUpdateInterface
 {
