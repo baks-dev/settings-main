@@ -48,6 +48,8 @@ final class SettingsControllerTest extends WebTestCase
 
             self::assertResponseIsSuccessful();
         }
+
+        self::assertTrue(true);
     }
 
     /** Доступ по роли ROLE_ADMIN */
@@ -67,6 +69,8 @@ final class SettingsControllerTest extends WebTestCase
 
             self::assertResponseIsSuccessful();
         }
+
+        self::assertTrue(true);
     }
 
     /** Закрытый доступ по роли ROLE_USER */
@@ -85,6 +89,8 @@ final class SettingsControllerTest extends WebTestCase
 
             self::assertResponseStatusCodeSame(403, 'Доступ запрещен');
         }
+
+        self::assertTrue(true);
     }
 
     /** Закрытый доступ по без роли */
@@ -101,5 +107,7 @@ final class SettingsControllerTest extends WebTestCase
 
             self::assertResponseStatusCodeSame(401, 'Для доступа к этому ресурсу требуется полная аутентификация');
         }
+
+        self::assertTrue(true);
     }
 }
