@@ -76,12 +76,12 @@ final class SettingsMainRepository implements SettingsMainInterface
 
 
         /* Кешируем результат DBAL */
-        return $dbal->enableCache('settings-main', 84600)->fetchAssociative();
+        return $dbal->enableCache('settings-main', 84600)->fetchAssociative() ?: [];
 
     }
 
 
-    public function getPhone()
+    public function getPhone(): array
     {
         $dbal = $this->DBALQueryBuilder->createQueryBuilder(self::class);
 
