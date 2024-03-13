@@ -8,69 +8,16 @@
 {# ---- CSS ------------------------------------------------------------ #}
 {% block stylesheets %}
 	<link href="/assets/plugins/nice-select2/nice-select2.min.css" rel="stylesheet" type="text/css">
-	{# <link href="/assets/plugins/cropper/cropper.bundle.css" rel="stylesheet" type="text/css"> #}
 {% endblock %}
-
-{# ---- HEADER-БЛОК ------------------------------------------------------------ #}
-{# {% block header %}
-    {{ include(_self|replace({ "template.html.twig": "header.html.twig" })) }}
-{% endblock %} #}
-
-
-{# ---- LEFT-БЛОК ------------------------------------------------------------ #}
-{# {% block left %} #}
-{#   {% include '@Template/flowers/left.html.twig' %} #}
-{# {% endblock %} #}
-
 
 {# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
 {% block content %}
 	{{ include(_self|replace({ "template.html.twig": baks_settings.device~"/content.html.twig" })) }}
 {% endblock %}
 
-
-{# ---- FOOTER-БЛОК ------------------------------------------------------------ #}
-{#
-{% block footer %}
-    {{ include(_self|replace({ "template.html.twig": "footer.html.twig" })) }}
-{% endblock %}
-#}
-
-
-{#
-<script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/phone.min.js" class="lazy">
-	<script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/social.min.js" class="lazy"> #}
-
 {% block javascript %}
-
-<script nonce="{{ csp_nonce() }}" data-src="/assets/plugins/nice-select2/nice-select2.js?v={{ version }}" class="lazy"></script>
-<script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/phone.min.js?v={{ version }}" class="lazy"></script>
-<script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/social.min.js?v={{ version }}" class="lazy"></script>
-<script nonce="{{ csp_nonce() }}" data-src="/assets/settings_main/main.min.js?v={{ version }}" class="lazy"></script>
+<script nonce='{{ csp_nonce() }}' async  data-src="/assets/plugins/nice-select2/nice-select2.js?v={{ version }}" class="lazy"></script>
+<script nonce='{{ csp_nonce() }}' async  data-src="/assets/settings_main/phone.min.js?v={{ version }}" class="lazy"></script>
+<script nonce='{{ csp_nonce() }}' async  data-src="/assets/settings_main/social.min.js?v={{ version }}" class="lazy"></script>
+<script nonce='{{ csp_nonce() }}' async  data-src="/assets/settings_main/main.min.js?v={{ version }}" class="lazy"></script>
 {% endblock %}
-{#
-{% block javascript %}
-<script>
-    window.addEventListener('load', function ()
-    {
-        jsRequire('/plugins/cropper/cropper.bundle.js');
-        jsRequire('/plugins/nice-select2/nice-select2.js');
-        jsRequire('/system/settings/main/phone.min.js');
-        jsRequire('/system/settings/main/social.min.js');
-    });
-
-	/* Подписываемся на событие после загрузки nice-select2 */
-	eventEmitter.addEventListener('/plugins/nice-select2/nice-select2.js', function() {
-		new NiceSelect(document.querySelector('[data-select="select2"]'), {searchable: true});
-	});
-
-    eventEmitter.addEventListener('/plugins/cropper/cropper.bundle.js', function() {
-    	jsRequire('/system/settings/main/main.min.js');
-    });
-</script>
-{% endblock %} #}
-
-{# {% block post_javascript %} #}
-{#    /* применяем select2 */ #}
-{#    new NiceSelect(document.querySelector('[data-select="select2"]'), { searchable: true }); #}
-{# {% endblock %} #}
