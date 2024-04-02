@@ -8,7 +8,7 @@ use BaksDev\Settings\Main\Entity\Event\SettingsMainEvent;
 use BaksDev\Settings\Main\Entity\SettingsMain;
 use BaksDev\Settings\Main\Type\Id\SettingsMainIdentificator;
 
-final class SettingsMainUpdate implements SettingsMainUpdateInterface
+final class SettingsMainUpdateRepository implements SettingsMainUpdateInterface
 {
 
     //private EntityManagerInterface $entityManager;

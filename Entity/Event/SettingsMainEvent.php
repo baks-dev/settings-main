@@ -38,7 +38,7 @@ class SettingsMainEvent extends EntityEvent
 	protected ?SettingsMainIdentificator $setting = null;
 	
 	/** Модификатор */
-	#[ORM\OneToOne(mappedBy: 'event', targetEntity: SettingsMainModify::class, cascade: ['all'])]
+	#[ORM\OneToOne(targetEntity: SettingsMainModify::class, mappedBy: 'event', cascade: ['all'])]
 	protected SettingsMainModify $modify;
 	
 	/** Цвет */
@@ -46,15 +46,15 @@ class SettingsMainEvent extends EntityEvent
 	protected ?Color $color;
 	
 	/** Контактные телефоны */
-	#[ORM\OneToMany(mappedBy: 'event', targetEntity: SettingsMainPhone::class, cascade: ['all'])]
+	#[ORM\OneToMany(targetEntity: SettingsMainPhone::class, mappedBy: 'event', cascade: ['all'])]
 	protected Collection $phone;
 	
 	/** Настройки SEO по умолчанию */
-	#[ORM\OneToMany(mappedBy: 'event', targetEntity: SettingsMainSeo::class, cascade: ['all'])]
+	#[ORM\OneToMany(targetEntity: SettingsMainSeo::class, mappedBy: 'event', cascade: ['all'])]
 	protected Collection $seo;
 	
 	/** Социальные сети */
-	#[ORM\OneToMany(mappedBy: 'event', targetEntity: SettingsMainSocial::class, cascade: ['all'])]
+	#[ORM\OneToMany(targetEntity: SettingsMainSocial::class, mappedBy: 'event', cascade: ['all'])]
 	protected Collection $social;
 	
 	
