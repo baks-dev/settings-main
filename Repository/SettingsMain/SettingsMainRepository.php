@@ -55,7 +55,7 @@ final class SettingsMainRepository implements SettingsMainInterface
 
         $dbal
             ->addSelect('event.color')
-            ->join(
+            ->leftJoin(
                 'main',
                 SettingsMainEvent::class,
                 'event',
@@ -67,7 +67,7 @@ final class SettingsMainRepository implements SettingsMainInterface
             ->addSelect('seo.title')
             ->addSelect('seo.keywords')
             ->addSelect('seo.description')
-            ->join(
+            ->leftJoin(
                 'main',
                 SettingsMainSeo::class,
                 'seo',
