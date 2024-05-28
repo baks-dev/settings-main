@@ -55,6 +55,7 @@ final class SettingsController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid() && $form->has('settings_main'))
         {
+            $this->refreshTokenForm($form);
 
             $SettingsMain = $settingsMainHandler->handle($SettingsMainDTO);
 

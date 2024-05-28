@@ -1,6 +1,6 @@
 # BaksDev Settings Main
 
-[![Version](https://img.shields.io/badge/version-7.0.14-blue)](https://github.com/baks-dev/settings-main/releases)
+[![Version](https://img.shields.io/badge/version-7.0.15-blue)](https://github.com/baks-dev/settings-main/releases)
 ![php 8.2+](https://img.shields.io/badge/php-min%208.1-red.svg)
 
 Модуль "Основные настройки"
@@ -37,3 +37,4 @@ $ php bin/phpunit --group=settings-main
 ## Лицензия ![License](https://img.shields.io/badge/MIT-green)
 
 The MIT License (MIT). Обратитесь к [Файлу лицензии](LICENSE.md) за дополнительной информацией.
+
