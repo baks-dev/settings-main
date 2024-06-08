@@ -75,6 +75,8 @@ final class SettingsMainRepository implements SettingsMainInterface
             );
 
 
+        dd($dbal->fetchAssociative());
+
         /* Кешируем результат DBAL */
         return $dbal->enableCache('settings-main', 84600)->fetchAssociative() ?: [];
 

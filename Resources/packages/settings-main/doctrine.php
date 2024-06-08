@@ -2,6 +2,7 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use BaksDev\Settings\Main\BaksDevSettingsMainBundle;
 use BaksDev\Settings\Main\Type\Event\SettingsMainEventType;
 use BaksDev\Settings\Main\Type\Event\SettingsMainEventUid;
 use BaksDev\Settings\Main\Type\Id\SettingsMainIdentificator;
@@ -21,11 +22,10 @@ return static function(ContainerConfigurator $container, DoctrineConfig $doctrin
 
     $emDefault = $doctrine->orm()->entityManager('default')->autoMapping(true);
 
-    $MODULE = substr(__DIR__, 0, strpos(__DIR__, "Resources"));
 
     $emDefault->mapping('settings-main')
 		->type('attribute')
-		->dir($MODULE.'Entity')
+		->dir(BaksDevSettingsMainBundle::PATH.'Entity')
 		->isBundle(false)
 		->prefix('BaksDev\Settings\Main\Entity')
 		->alias('settings-main')
