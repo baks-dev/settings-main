@@ -37,7 +37,7 @@ final class SettingsControllerTest extends WebTestCase
         self::ensureKernelShutdown();
         $client = static::createClient();
 
-        foreach (TestUserAccount::getDevice() as $device)
+        foreach(TestUserAccount::getDevice() as $device)
         {
             $client->setServerParameter('HTTP_USER_AGENT', $device);
 
@@ -58,7 +58,7 @@ final class SettingsControllerTest extends WebTestCase
         self::ensureKernelShutdown();
         $client = static::createClient();
 
-        foreach (TestUserAccount::getDevice() as $device)
+        foreach(TestUserAccount::getDevice() as $device)
         {
             $client->setServerParameter('HTTP_USER_AGENT', $device);
 
@@ -79,7 +79,7 @@ final class SettingsControllerTest extends WebTestCase
         self::ensureKernelShutdown();
         $client = static::createClient();
 
-        foreach (TestUserAccount::getDevice() as $device)
+        foreach(TestUserAccount::getDevice() as $device)
         {
             $client->setServerParameter('HTTP_USER_AGENT', $device);
 
@@ -99,7 +99,7 @@ final class SettingsControllerTest extends WebTestCase
         self::ensureKernelShutdown();
         $client = static::createClient();
 
-        foreach (TestUserAccount::getDevice() as $device)
+        foreach(TestUserAccount::getDevice() as $device)
         {
             $client->setServerParameter('HTTP_USER_AGENT', $device);
 

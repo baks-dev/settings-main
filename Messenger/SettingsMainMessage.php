@@ -30,44 +30,48 @@ use BaksDev\Settings\Main\Type\Id\SettingsMainIdentificator;
 
 final class SettingsMainMessage
 {
-	/** Идентификатор */
-	private SettingsMainIdentificator $id;
-	
-	/** Идентификатор события */
-	private SettingsMainEventUid $event;
-	
-	/** Идентификатор предыдущего события */
-	private ?SettingsMainEventUid $last;
-	
-	public function __construct(SettingsMainIdentificator $id, SettingsMainEventUid $event, ?SettingsMainEventUid $last = null)
-	{
-		$this->last = $last;
-		$this->id = $id;
-		$this->event = $event;
-	}
-	
-	
-	/** Идентификатор */
-	
-	public function getId() : SettingsMainIdentificator
-	{
-		return $this->id;
-	}
-	
-	
-	/** Идентификатор события */
-	
-	public function getEvent() : SettingsMainEventUid
-	{
-		return $this->event;
-	}
-	
-	
-	/** Идентификатор предыдущего события */
-	
-	public function getLast() : ?SettingsMainEventUid
-	{
-		return $this->last;
-	}
-	
+    /** Идентификатор */
+    private SettingsMainIdentificator $id;
+
+    /** Идентификатор события */
+    private SettingsMainEventUid $event;
+
+    /** Идентификатор предыдущего события */
+    private ?SettingsMainEventUid $last;
+
+    public function __construct(
+        SettingsMainIdentificator $id,
+        SettingsMainEventUid $event,
+        ?SettingsMainEventUid $last = null
+    )
+    {
+        $this->last = $last;
+        $this->id = $id;
+        $this->event = $event;
+    }
+
+
+    /** Идентификатор */
+
+    public function getId(): SettingsMainIdentificator
+    {
+        return $this->id;
+    }
+
+
+    /** Идентификатор события */
+
+    public function getEvent(): SettingsMainEventUid
+    {
+        return $this->event;
+    }
+
+
+    /** Идентификатор предыдущего события */
+
+    public function getLast(): ?SettingsMainEventUid
+    {
+        return $this->last;
+    }
+
 }

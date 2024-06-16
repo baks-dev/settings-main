@@ -33,150 +33,148 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 final class SettingsMainDTO implements SettingsMainEventInterface
 {
-	
-	private ?SettingsMainEventUid $id = null;
-	
-	/** Контактный телефон */
-	private ?ArrayCollection $phone;
-	
-	/** SEO */
-	private ?ArrayCollection $seo;
-	
-	/** Ссылки на страницы в соцсетях*/
-	private ?ArrayCollection $social;
-	
-	/** Основной цвет системы */
-	private ?Color $color;
-	
-	/** Логотип */
-	private ?string $logo;
-	
-	
-	public function __construct(?Color $color = new Color(new Blue()))
-	{
-		$this->phone = new ArrayCollection();
-		$this->seo = new ArrayCollection();
-		$this->social = new ArrayCollection();
-		
-		$this->color = $color;
-	}
-	
-	
-	public function getEvent() : ?SettingsMainEventUid
-	{
-		return $this->id;
-	}
-	
-	//    public function setId(SettingsMainEventUid $id) : void
-	//    {
-	//        $this->id = $id;
-	//    }
-	
-	/** Логотип */
-	public function getLogo() : ?string
-	{
-		return $this->logo;
-	}
-	
-	
-	public function setLogo(?string $logo) : void
-	{
-		$this->logo = $logo;
-	}
-	
-	
-	/** Основной цвет системы */
-	
-	public function getColor() : ?Color
-	{
-		return $this->color;
-	}
-	
-	
-	public function setColor(Color|string|null $color) : void
-	{
-		if($color instanceof Color)
-		{
-			$this->color = $color;
-			
-			return;
-		}
-		$this->color = new Color($color);
-	}
-	
-	
-	/** Контактный телефон */
-	
-	public function getPhone() : ?ArrayCollection
-	{
-		return $this->phone;
-	}
-	
-	
-	public function addPhone(SettingsMainPhoneDTO $phone) : void
-	{
-		$this->phone->add($phone);
-	}
-	
-	
-	public function removePhone(SettingsMainPhoneDTO $phone) : void
-	{
-		$this->phone->removeElement($phone);
-	}
-	
-	
-	/** SEO */
-	
-	public function getSeo() : ?ArrayCollection
-	{
-		/* Вычисляем расхождение и добавляем неопределенные локали */
-		
-		foreach(Locale::diffLocale($this->seo) as $locale)
-		{
-			$CategorySeoDTO = new SettingsMainSeoDTO();
-			$CategorySeoDTO->setLocal($locale);
-			$this->addSeo($CategorySeoDTO);
-		}
-		
-		return $this->seo;
-	}
-	
-	
-	public function addSeo(SettingsMainSeoDTO $seo) : void
-	{
+    private ?SettingsMainEventUid $id = null;
+
+    /** Контактный телефон */
+    private ?ArrayCollection $phone;
+
+    /** SEO */
+    private ?ArrayCollection $seo;
+
+    /** Ссылки на страницы в соцсетях*/
+    private ?ArrayCollection $social;
+
+    /** Основной цвет системы */
+    private ?Color $color;
+
+    /** Логотип */
+    private ?string $logo;
+
+
+    public function __construct(?Color $color = new Color(new Blue()))
+    {
+        $this->phone = new ArrayCollection();
+        $this->seo = new ArrayCollection();
+        $this->social = new ArrayCollection();
+
+        $this->color = $color;
+    }
+
+
+    public function getEvent(): ?SettingsMainEventUid
+    {
+        return $this->id;
+    }
+
+    //    public function setId(SettingsMainEventUid $id) : void
+    //    {
+    //        $this->id = $id;
+    //    }
+
+    /** Логотип */
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+
+    public function setLogo(?string $logo): void
+    {
+        $this->logo = $logo;
+    }
+
+
+    /** Основной цвет системы */
+
+    public function getColor(): ?Color
+    {
+        return $this->color;
+    }
+
+
+    public function setColor(Color|string|null $color): void
+    {
+        if($color instanceof Color)
+        {
+            $this->color = $color;
+
+            return;
+        }
+        $this->color = new Color($color);
+    }
+
+
+    /** Контактный телефон */
+
+    public function getPhone(): ?ArrayCollection
+    {
+        return $this->phone;
+    }
+
+
+    public function addPhone(SettingsMainPhoneDTO $phone): void
+    {
+        $this->phone->add($phone);
+    }
+
+
+    public function removePhone(SettingsMainPhoneDTO $phone): void
+    {
+        $this->phone->removeElement($phone);
+    }
+
+
+    /** SEO */
+
+    public function getSeo(): ?ArrayCollection
+    {
+        /* Вычисляем расхождение и добавляем неопределенные локали */
+
+        foreach(Locale::diffLocale($this->seo) as $locale)
+        {
+            $CategorySeoDTO = new SettingsMainSeoDTO();
+            $CategorySeoDTO->setLocal($locale);
+            $this->addSeo($CategorySeoDTO);
+        }
+
+        return $this->seo;
+    }
+
+
+    public function addSeo(SettingsMainSeoDTO $seo): void
+    {
         if(empty($seo->getLocal()->getLocalValue()))
         {
             return;
         }
 
-		$this->seo->add($seo);
-	}
-	
-	
-	public function removeSeo(SettingsMainSeoDTO $seo) : void
-	{
-		$this->seo->removeElement($seo);
-	}
-	
-	
-	/** Ссылки на страницы в соцсетях */
-	
-	public function getSocial() : ?ArrayCollection
-	{
-		return $this->social;
-	}
-	
-	
-	public function addSocial(SettingsMainSocialDTO $social) : void
-	{
-		$this->social->add($social);
-	}
-	
-	
-	public function removeSocial(SettingsMainSocialDTO $social) : void
-	{
-		$this->social->removeElement($social);
-	}
-	
-}
+        $this->seo->add($seo);
+    }
 
+
+    public function removeSeo(SettingsMainSeoDTO $seo): void
+    {
+        $this->seo->removeElement($seo);
+    }
+
+
+    /** Ссылки на страницы в соцсетях */
+
+    public function getSocial(): ?ArrayCollection
+    {
+        return $this->social;
+    }
+
+
+    public function addSocial(SettingsMainSocialDTO $social): void
+    {
+        $this->social->add($social);
+    }
+
+
+    public function removeSocial(SettingsMainSocialDTO $social): void
+    {
+        $this->social->removeElement($social);
+    }
+
+}

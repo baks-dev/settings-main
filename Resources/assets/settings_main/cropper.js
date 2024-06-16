@@ -1,4 +1,5 @@
-window.addEventListener('load', function () {
+window.addEventListener('load', function()
+{
 
     var logo = document.getElementById('logo');
     var image = document.getElementById('image');
@@ -13,7 +14,8 @@ window.addEventListener('load', function () {
     var $closeModal = new bootstrap.Modal($modalLogo);
 
 
-    input.addEventListener('change', function (e) {
+    input.addEventListener('change', function(e)
+    {
 
         /* Делаем AJAX запрос для формы */
         const request = new XMLHttpRequest();
@@ -28,9 +30,11 @@ window.addEventListener('load', function () {
         request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
         /* Получаем ответ от сервера на запрос*/
-        request.addEventListener("readystatechange", function (evemnt) {
+        request.addEventListener("readystatechange", function(evemnt)
+        {
             /* request.readyState - возвращает текущее состояние объекта XHR(XMLHttpRequest) */
-            if (request.readyState === 4 && request.status === 200) {
+            if(request.readyState === 4 && request.status === 200)
+            {
                 /* Заполняе модальное окно формой */
                 var modl = document.getElementById('modal');
                 modl.innerHTML = request.responseText;
@@ -41,7 +45,8 @@ window.addEventListener('load', function () {
 
 
                 var files = e.target.files;
-                var done = function (url) {
+                var done = function(url)
+                {
                     input.value = '';
                     image.src = url;
                     //$alert.hide();
@@ -52,7 +57,8 @@ window.addEventListener('load', function () {
                 var file;
                 var url;
 
-                if (files && files.length > 0) {
+                if(files && files.length > 0)
+                {
                     file = files[0];
 
                     //if (URL) {
@@ -60,18 +66,21 @@ window.addEventListener('load', function () {
 
                     //    done(URL.createObjectURL(file));
                     //} else
-                    if (FileReader) {
+                    if(FileReader)
+                    {
 
                         reader = new FileReader();
 
-                        reader.addEventListener('load', function (event) {
+                        reader.addEventListener('load', function(event)
+                        {
 
                             done(reader.result);
 
                         }, false);
 
                         reader.readAsDataURL(file);
-                    } else if (URL) {
+                    } else if(URL)
+                    {
                         done(URL.createObjectURL(file));
                     }
                 }
@@ -79,12 +88,14 @@ window.addEventListener('load', function () {
                 /* получаем форму по имени */
                 let $settings_admin_main_logo = document.forms.namedItem("form");
 
-                if (!$settings_admin_main_logo) {
+                if(!$settings_admin_main_logo)
+                {
                     return;
                 }
 
                 /* Отправка фотмы сохранения */
-                $settings_admin_main_logo.addEventListener('submit', function (event) {
+                $settings_admin_main_logo.addEventListener('submit', function(event)
+                {
                     event.preventDefault();
 
                     var initialAvatarURL;
@@ -95,7 +106,8 @@ window.addEventListener('load', function () {
 
                     let formData = new FormData($settings_admin_main_logo); // создаём объект, по желанию берём данные формы <form>
 
-                    if (cropper) {
+                    if(cropper)
+                    {
 
                         canvas = cropper.getCroppedCanvas({
                             minWidth: 20,
@@ -104,7 +116,8 @@ window.addEventListener('load', function () {
                         });
 
 
-                        canvas.toBlob(function (blob) {
+                        canvas.toBlob(function(blob)
+                        {
 
                             /* Вставляем новый файл Cropie-аватарку */
                             formData.append('logoCrop', blob);
@@ -117,23 +130,26 @@ window.addEventListener('load', function () {
 
 
                             /* Получаем ответ от сервера на запрос*/
-                            request.addEventListener("readystatechange", function (evemnt) {
+                            request.addEventListener("readystatechange", function(evemnt)
+                            {
                                 /* request.readyState - возвращает текущее состояние объекта XHR(XMLHttpRequest) */
-                                if (request.readyState === 4 && request.status === 200) {
+                                if(request.readyState === 4 && request.status === 200)
+                                {
                                     /* Парсим ответ JSON */
                                     const result = JSON.parse(request.responseText);
 
-                                    if (result.status == 200) {
+                                    if(result.status == 200)
+                                    {
                                         /* получаем адрес CDN по атрибуту data-img и  */
                                         /*let cdn = $modalСoverBodyCdn.dataset.img.split('img', 1);*/
 
                                         /* обновляем обложку в профиле */
                                         /*let userCover = document.getElementById('userCover');
-                                        userCover.src = cdn+'img/'+$modalСoverBodyCdn.dataset.id+'/'+ result.name+'.png';*/
+                                         userCover.src = cdn+'img/'+$modalСoverBodyCdn.dataset.id+'/'+ result.name+'.png';*/
 
                                         /* Заолняем скрытое поле названием файла обложки */
                                         /*let hiddenUserCover = document.getElementById('profile_coverProfile');
-                                        hiddenUserCover.value = result.name;*/
+                                         hiddenUserCover.value = result.name;*/
 
                                         /* обновляем логотип в форме */
                                         initialAvatarURL = logo.src;
@@ -141,7 +157,8 @@ window.addEventListener('load', function () {
 
                                         console.log(result);
 
-                                    } else {
+                                    } else
+                                    {
                                         /* Ошибка о загрузке файла */
                                         alert('Error upload file cover');
                                         /* Выводим текст ошибки в консоль */
@@ -178,7 +195,8 @@ window.addEventListener('load', function () {
     });
 
 
-    $modalLogo.addEventListener('shown.bs.modal', function () {
+    $modalLogo.addEventListener('shown.bs.modal', function()
+    {
 
         var setWidth = 200;
         var setHeight = 50;
@@ -196,16 +214,18 @@ window.addEventListener('load', function () {
                 height: (minCroppedHeight + maxCroppedHeight) / 2,
             },
 
-            crop: function (event) {
+            crop: function(event)
+            {
                 var width = event.detail.width;
                 var height = event.detail.height;
 
-                if (
+                if(
                     width < minCroppedWidth
                     || height < minCroppedHeight
                     || width > maxCroppedWidth
                     || height > maxCroppedHeight
-                ) {
+                )
+                {
                     cropper.setData({
                         width: Math.max(minCroppedWidth, Math.min(maxCroppedWidth, width)),
                         height: Math.max(minCroppedHeight, Math.min(maxCroppedHeight, height)),
@@ -219,7 +239,8 @@ window.addEventListener('load', function () {
     });
 
     /* сбрасываем модальное окно при закрытии */
-    $modalLogo.addEventListener('hidden.bs.modal', function () {
+    $modalLogo.addEventListener('hidden.bs.modal', function()
+    {
         cropper.destroy();
         cropper = null;
         $modalLogo.innerHTML = '';
@@ -228,10 +249,10 @@ window.addEventListener('load', function () {
     /*$modal.on('shown.bs.modal', function () {
 
 
-    }).on('hidden.bs.modal', function () {
-        cropper.destroy();
-        cropper = null;
-    });*/
+     }).on('hidden.bs.modal', function () {
+     cropper.destroy();
+     cropper = null;
+     });*/
 
 
 });

@@ -25,26 +25,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class SettingsMainSeoForm extends AbstractType
 {
-	
-	public function buildForm(FormBuilderInterface $builder, array $options): void
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-		/* TextType */
-		//$builder->add('local', HiddenType::class);
-		$builder->add('title', TextType::class);
-		$builder->add('description', TextareaType::class);
-		$builder->add('keywords', TextareaType::class);
-		
-	}
-	
-	
-	public function configureOptions(OptionsResolver $resolver): void
+        /* TextType */
+        //$builder->add('local', HiddenType::class);
+        $builder->add('title', TextType::class);
+        $builder->add('description', TextareaType::class);
+        $builder->add('keywords', TextareaType::class);
+
+    }
+
+
+    public function configureOptions(OptionsResolver $resolver): void
     {
-		$resolver->setDefaults
-		(
-			[
-				'data_class' => SettingsMainSeoDTO::class,
-			]
-		);
-	}
-	
+        $resolver->setDefaults
+        (
+            [
+                'data_class' => SettingsMainSeoDTO::class,
+            ]
+        );
+    }
+
 }

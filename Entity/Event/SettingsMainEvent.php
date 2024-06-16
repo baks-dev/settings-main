@@ -26,92 +26,92 @@ use InvalidArgumentException;
 #[ORM\Index(columns: ['setting'])]
 class SettingsMainEvent extends EntityEvent
 {
-	public const TABLE = 'settings_main_event';
-	
-	/** ID события */
-	#[ORM\Id]
-	#[ORM\Column(type: SettingsMainEventUid::TYPE)]
-	protected SettingsMainEventUid $id;
-	
-	/** ID SettingsMain */
-	#[ORM\Column(type: SettingsMainIdentificator::TYPE)]
-	protected ?SettingsMainIdentificator $setting = null;
-	
-	/** Модификатор */
-	#[ORM\OneToOne(targetEntity: SettingsMainModify::class, mappedBy: 'event', cascade: ['all'])]
-	protected SettingsMainModify $modify;
-	
-	/** Цвет */
-	#[ORM\Column(name: 'color', type: Color::TYPE, nullable: false)]
-	protected ?Color $color;
-	
-	/** Контактные телефоны */
-	#[ORM\OneToMany(targetEntity: SettingsMainPhone::class, mappedBy: 'event', cascade: ['all'])]
-	protected Collection $phone;
-	
-	/** Настройки SEO по умолчанию */
-	#[ORM\OneToMany(targetEntity: SettingsMainSeo::class, mappedBy: 'event', cascade: ['all'])]
-	protected Collection $seo;
-	
-	/** Социальные сети */
-	#[ORM\OneToMany(targetEntity: SettingsMainSocial::class, mappedBy: 'event', cascade: ['all'])]
-	protected Collection $social;
-	
-	
-	public function __construct()
-	{
-		$this->id = new SettingsMainEventUid();
-		$this->modify = new SettingsMainModify($this, new ModifyAction(ModifyActionNew::class));
-	}
-	
-	
-	public function __clone()
-	{
+    public const TABLE = 'settings_main_event';
+
+    /** ID события */
+    #[ORM\Id]
+    #[ORM\Column(type: SettingsMainEventUid::TYPE)]
+    protected SettingsMainEventUid $id;
+
+    /** ID SettingsMain */
+    #[ORM\Column(type: SettingsMainIdentificator::TYPE)]
+    protected ?SettingsMainIdentificator $setting = null;
+
+    /** Модификатор */
+    #[ORM\OneToOne(targetEntity: SettingsMainModify::class, mappedBy: 'event', cascade: ['all'])]
+    protected SettingsMainModify $modify;
+
+    /** Цвет */
+    #[ORM\Column(name: 'color', type: Color::TYPE, nullable: false)]
+    protected ?Color $color;
+
+    /** Контактные телефоны */
+    #[ORM\OneToMany(targetEntity: SettingsMainPhone::class, mappedBy: 'event', cascade: ['all'])]
+    protected Collection $phone;
+
+    /** Настройки SEO по умолчанию */
+    #[ORM\OneToMany(targetEntity: SettingsMainSeo::class, mappedBy: 'event', cascade: ['all'])]
+    protected Collection $seo;
+
+    /** Социальные сети */
+    #[ORM\OneToMany(targetEntity: SettingsMainSocial::class, mappedBy: 'event', cascade: ['all'])]
+    protected Collection $social;
+
+
+    public function __construct()
+    {
+        $this->id = new SettingsMainEventUid();
+        $this->modify = new SettingsMainModify($this, new ModifyAction(ModifyActionNew::class));
+    }
+
+
+    public function __clone()
+    {
         $this->id = clone $this->id;
-	}
+    }
 
     public function __toString(): string
     {
         return (string) $this->id;
     }
 
-	public function getId() : SettingsMainEventUid
-	{
-		return $this->id;
-	}
+    public function getId(): SettingsMainEventUid
+    {
+        return $this->id;
+    }
 
-	public function getSetting() : ?SettingsMainIdentificator
-	{
-		return $this->setting;
-	}
-	
-
-	public function setSetting(SettingsMain|SettingsMainIdentificator $setting) : void
-	{
-		$this->setting = $setting instanceof SettingsMain ? $setting->getId() : $setting;
-	}
+    public function getSetting(): ?SettingsMainIdentificator
+    {
+        return $this->setting;
+    }
 
 
-	public function getDto($dto): mixed
-	{
+    public function setSetting(SettingsMain|SettingsMainIdentificator $setting): void
+    {
+        $this->setting = $setting instanceof SettingsMain ? $setting->getId() : $setting;
+    }
+
+
+    public function getDto($dto): mixed
+    {
         $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;
 
-		if($dto instanceof SettingsMainEventInterface || $dto instanceof self)
-		{
-			return parent::getDto($dto);
-		}
-		
-		throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
-	}
+        if($dto instanceof SettingsMainEventInterface || $dto instanceof self)
+        {
+            return parent::getDto($dto);
+        }
 
-	public function setEntity($dto): mixed
-	{
-		if($dto instanceof SettingsMainEventInterface || $dto instanceof self)
-		{
-			return parent::setEntity($dto);
-		}
-		
-		throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
-	}
-	
+        throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
+    }
+
+    public function setEntity($dto): mixed
+    {
+        if($dto instanceof SettingsMainEventInterface || $dto instanceof self)
+        {
+            return parent::setEntity($dto);
+        }
+
+        throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
+    }
+
 }

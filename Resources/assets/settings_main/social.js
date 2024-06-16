@@ -22,10 +22,12 @@ let $addButtonSocial = document.getElementById('social_addCollection');
 /* Блок для новой коллекции КАТЕГОРИИ */
 let $blockCollectionSocial = document.getElementById('social_collection');
 
-if ($addButtonSocial) {
+if($addButtonSocial)
+{
 
     /* Добавляем новую коллекцию */
-    $addButtonSocial.addEventListener('click', function () {
+    $addButtonSocial.addEventListener('click', function()
+    {
         let $emptyCollectionSocial = document.getElementById('empty_social_collection');
         $emptyCollectionSocial.classList.add('d-none');
 
@@ -34,7 +36,7 @@ if ($addButtonSocial) {
         let index = $addButtonSocial.dataset.index * 1;
 
         /* Замена '__name__' в HTML-коде прототипа
-        вместо этого будет число, основанное на том, сколько коллекций */
+         вместо этого будет число, основанное на том, сколько коллекций */
         newForm = newForm.replace(/__name__/g, index);
 
         /* Вставляем новую коллекцию */
@@ -48,14 +50,17 @@ if ($addButtonSocial) {
         $emptyCollectionSocial.style.setProperty("display", "none", "important");
 
         /* Удаляем при клике колекцию СЕКЦИЙ */
-        div.querySelector('.del-item-social').addEventListener('click', function () {
+        div.querySelector('.del-item-social').addEventListener('click', function()
+        {
             this.closest('.item-collection-social').remove();
             /* Уменьшаем индекс */
             $addButtonSocial.dataset.index = ($addButtonSocial.dataset.index - 1).toString();
 
-            if ($addButtonSocial.dataset.index > 0) {
+            if($addButtonSocial.dataset.index > 0)
+            {
                 $emptyCollectionSocial.style.setProperty("display", "none", "important");
-            } else {
+            } else
+            {
                 $emptyCollectionSocial.style.display = 'flex';
             }
         });
@@ -65,8 +70,10 @@ if ($addButtonSocial) {
     let $delItemSocial = $blockCollectionSocial.querySelectorAll('.del-item-social');
 
     /* Удаляем при клике колекцию СЕКЦИЙ */
-    $delItemSocial.forEach(function (item) {
-        item.addEventListener('click', function () {
+    $delItemSocial.forEach(function(item)
+    {
+        item.addEventListener('click', function()
+        {
             item.closest('.item-collection-social').remove();
 
             /* Уменьшаем индекс */
@@ -75,9 +82,11 @@ if ($addButtonSocial) {
 
             let $emptyCollectionSocial = document.getElementById('empty_social_collection');
 
-            if ($addButtonSocial.dataset.index > 0) {
+            if($addButtonSocial.dataset.index > 0)
+            {
                 $emptyCollectionSocial.style.setProperty("display", "none", "important");
-            } else {
+            } else
+            {
                 $emptyCollectionSocial.style.display = 'flex';
             }
         });

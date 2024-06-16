@@ -24,82 +24,82 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class SettingsMainSeoDTO implements SettingsMainSeoInterface
 {
-	
-	/** Локаль  */
-	#[Assert\NotBlank]
-	#[Assert\Locale]
-	private readonly ?Locale $local;
-	
-	/** Title  */
-	#[Assert\NotBlank]
-	#[Assert\Regex(pattern: '/^[\w \.\,\_\-\(\)\%]+$/iu')]
-	private ?string $title = null;
-	
-	/** Keywords */
-	#[Assert\NotBlank]
-	#[Assert\Regex(pattern: '/^[\w \.\,\_\-\(\)\%]+$/iu')]
-	private ?string $keywords = null;
-	
-	/** Description */
-	#[Assert\NotBlank]
-	#[Assert\Regex(pattern: '/^[\w \.\,\_\-\(\)\%]+$/iu')]
-	private ?string $description = null;
-	
-	/** Локаль  */
 
-	public function getLocal() : Locale
-	{
-		return $this->local;
-	}
+    /** Локаль  */
+    #[Assert\NotBlank]
+    #[Assert\Locale]
+    private readonly ?Locale $local;
 
-    public function setLocal(Locale|string $local) : void
+    /** Title  */
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[\w \.\,\_\-\(\)\%]+$/iu')]
+    private ?string $title = null;
+
+    /** Keywords */
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[\w \.\,\_\-\(\)\%]+$/iu')]
+    private ?string $keywords = null;
+
+    /** Description */
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[\w \.\,\_\-\(\)\%]+$/iu')]
+    private ?string $description = null;
+
+    /** Локаль  */
+
+    public function getLocal(): Locale
+    {
+        return $this->local;
+    }
+
+    public function setLocal(Locale|string $local): void
     {
         if(!(new ReflectionProperty(self::class, 'local'))->isInitialized($this))
         {
             $this->local = $local instanceof Locale ? $local : new Locale($local);
         }
     }
-	
-	
-	/** Title  */
-	
-	public function getTitle() : ?string
-	{
-		return $this->title;
-	}
-	
-	
-	public function setTitle(?string $title) : void
-	{
-		$this->title = $title;
-	}
-	
-	
-	/** Keywords */
-	
-	public function getKeywords() : ?string
-	{
-		return $this->keywords;
-	}
-	
-	
-	public function setKeywords(?string $keywords) : void
-	{
-		$this->keywords = $keywords;
-	}
-	
-	
-	/** Description */
-	
-	public function getDescription() : ?string
-	{
-		return $this->description;
-	}
-	
-	
-	public function setDescription(?string $description) : void
-	{
-		$this->description = $description;
-	}
-	
+
+
+    /** Title  */
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+
+    public function setTitle(?string $title): void
+    {
+        $this->title = $title;
+    }
+
+
+    /** Keywords */
+
+    public function getKeywords(): ?string
+    {
+        return $this->keywords;
+    }
+
+
+    public function setKeywords(?string $keywords): void
+    {
+        $this->keywords = $keywords;
+    }
+
+
+    /** Description */
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
 }

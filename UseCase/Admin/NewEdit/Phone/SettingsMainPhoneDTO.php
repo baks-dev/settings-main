@@ -22,76 +22,76 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class SettingsMainPhoneDTO implements SettingsMainPhoneInterface
 {
-	
-	public ?string $icon;
-	
-	public ?string $title;
-	
-	#[Assert\NotBlank]
-	#[Assert\Phone]
-	public ?string $phone;
-	
-	
-	/**
-	 * @return string|null
-	 */
-	public function getIcon() : ?string
-	{
-		return $this->icon;
-	}
-	
-	
-	/**
-	 * @param string|null $icon
-	 */
-	public function setIcon(?string $icon) : void
-	{
-		$this->icon = $icon;
-	}
-	
-	
-	/**
-	 * @return string|null
-	 */
-	public function getTitle() : ?string
-	{
-		return $this->title;
-	}
-	
-	
-	/**
-	 * @param string|null $title
-	 */
-	public function setTitle(?string $title) : void
-	{
-		$this->title = $title;
-	}
-	
-	
-	/**
-	 * @return string|null
-	 */
-	public function getPhone() : ?string
-	{
-		return $this->phone;
-	}
-	
-	
-	/**
-	 * @param string|null $phone
-	 */
-	public function setPhone(?string $phone) : void
-	{
-		$this->phone = $phone;
-	}
-	
-	
-	//    public function __construct(string $icon = null, string $title = null, string $phone = null)
-	//    {
-	//        $this->icon = $icon;
-	//        $this->title = $title;
-	//        $this->phone = $phone;
-	//    }
-	
+
+    public ?string $icon;
+
+    public ?string $title;
+
+    #[Assert\NotBlank]
+    #[Assert\Phone]
+    public ?string $phone;
+
+
+    /**
+     * @return string|null
+     */
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+
+    /**
+     * @param string|null $icon
+     */
+    public function setIcon(?string $icon): void
+    {
+        $this->icon = $icon;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+
+    /**
+     * @param string|null $title
+     */
+    public function setTitle(?string $title): void
+    {
+        $this->title = $title;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+
+    /**
+     * @param string|null $phone
+     */
+    public function setPhone(?string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+
+    //    public function __construct(string $icon = null, string $title = null, string $phone = null)
+    //    {
+    //        $this->icon = $icon;
+    //        $this->title = $title;
+    //        $this->phone = $phone;
+    //    }
+
 }
 

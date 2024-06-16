@@ -48,12 +48,12 @@ final class SettingsHeadersListeners
     {
         $data = $this->settingsMain->getSettingsMainAssociative($event->getRequest()->getHost(), $event->getRequest()->getLocale());
 
-        if ($data)
+        if($data)
         {
             $globals = $this->twig->getGlobals();
             $baks_settings = $globals['baks_settings'] ?? [];
             $this->twig->addGlobal('baks_settings', array_replace_recursive($baks_settings, ['headers' => $data]));
-            
+
         }
     }
 }

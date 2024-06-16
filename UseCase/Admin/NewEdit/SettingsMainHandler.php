@@ -98,8 +98,8 @@ final class SettingsMainHandler
             $this->entityManager->persist($Event);
         }
 
-//        $this->entityManager->clear();
-//        $this->entityManager->persist($Event);
+        //        $this->entityManager->clear();
+        //        $this->entityManager->persist($Event);
 
 
         /* @var SettingsMain $SettingsMain */

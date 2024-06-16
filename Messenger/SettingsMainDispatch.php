@@ -32,5 +32,5 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 #[AsMessageHandler]
 final class SettingsMainDispatch
 {
-	public function __invoke(SettingsMainMessage $message): void {}
+    public function __invoke(SettingsMainMessage $message): void {}
 }

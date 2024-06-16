@@ -21,10 +21,12 @@ let $addButtonPhone = document.getElementById('phone_addCollection');
 /* Блок для новой коллекции КАТЕГОРИИ */
 let $blockCollectionPhone = document.getElementById('phone_collection');
 
-if ($addButtonPhone) {
+if($addButtonPhone)
+{
 
     /* Добавляем новую коллекцию */
-    $addButtonPhone.addEventListener('click', function () {
+    $addButtonPhone.addEventListener('click', function()
+    {
         let $emptyCollectionPhone = document.getElementById('empty_phone_collection');
         $emptyCollectionPhone.classList.add('d-none');
 
@@ -33,7 +35,7 @@ if ($addButtonPhone) {
         let index = $addButtonPhone.dataset.index * 1;
 
         /* Замена '__name__' в HTML-коде прототипа
-       вместо этого будет число, основанное на том, сколько коллекций */
+         вместо этого будет число, основанное на том, сколько коллекций */
         newForm = newForm.replace(/__name__/g, index);
 
         /* Вставляем новую коллекцию */
@@ -47,16 +49,19 @@ if ($addButtonPhone) {
         $emptyCollectionPhone.style.setProperty("display", "none", "important");
 
         /* Удаляем при клике колекцию СЕКЦИЙ */
-        div.querySelector('.del-item-phone').addEventListener('click', function () {
+        div.querySelector('.del-item-phone').addEventListener('click', function()
+        {
 
             this.closest('.item-collection-phone').remove();
             /* Уменьшаем индекс */
 
             $addButtonPhone.dataset.index = ($addButtonPhone.dataset.index - 1).toString();
 
-            if ($addButtonPhone.dataset.index > 0) {
+            if($addButtonPhone.dataset.index > 0)
+            {
                 $emptyCollectionPhone.style.setProperty("display", "none", "important");
-            } else {
+            } else
+            {
                 $emptyCollectionPhone.style.display = 'flex';
             }
 
@@ -67,9 +72,11 @@ if ($addButtonPhone) {
     let $delItemPhone = $blockCollectionPhone.querySelectorAll('.del-item-phone');
 
     /* Удаляем при клике колекцию СЕКЦИЙ */
-    $delItemPhone.forEach(function (item) {
+    $delItemPhone.forEach(function(item)
+    {
 
-        item.addEventListener('click', function () {
+        item.addEventListener('click', function()
+        {
             item.closest('.item-collection-phone').remove();
 
             /* Уменьшаем индекс */
@@ -77,9 +84,11 @@ if ($addButtonPhone) {
 
             let $emptyCollectionPhone = document.getElementById('empty_phone_collection');
 
-            if ($addButtonPhone.dataset.index > 0) {
+            if($addButtonPhone.dataset.index > 0)
+            {
                 $emptyCollectionPhone.style.setProperty("display", "none", "important");
-            } else {
+            } else
+            {
                 $emptyCollectionPhone.style.display = 'flex';
             }
         });

@@ -6,15 +6,15 @@ use BaksDev\Core\Type\UidType\UidType;
 
 final class SettingsMainEventType extends UidType
 {
-	public function getClassType(): string
-	{
-		return SettingsMainEventUid::class;
-	}
-	
-	
-	public function getName(): string
-	{
-		return SettingsMainEventUid::TYPE;
-	}
-	
+    public function getClassType(): string
+    {
+        return SettingsMainEventUid::class;
+    }
+
+
+    public function getName(): string
+    {
+        return SettingsMainEventUid::TYPE;
+    }
+
 }

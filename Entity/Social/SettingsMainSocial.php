@@ -29,58 +29,58 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'settings_main_social')]
 class SettingsMainSocial extends EntityEvent
 {
-	public const TABLE = "settings_main_social";
-	
-	/** ID */
-	#[ORM\Id]
-	#[ORM\Column(name: 'id', type: SettingsMainSocialUid::TYPE)]
-	private SettingsMainSocialUid $id;
-	
-	/** Связь на событие  */
-	#[ORM\ManyToOne(targetEntity: SettingsMainEvent::class, inversedBy: "social")]
-	#[ORM\JoinColumn(name: 'event', referencedColumnName: 'id')]
-	protected SettingsMainEvent $event;
-	
-	/** Ссылка */
-	#[ORM\Column(name: 'href', type: Types::STRING, nullable: false)]
-	private string $href;
-	
-	/** Иконка соцсети */
-	#[ORM\Column(name: 'icon', type: Types::STRING, nullable: true)]
-	private ?string $icon;
-	
-	/** Краткое описание */
-	#[ORM\Column(name: 'title', type: Types::STRING, nullable: false)]
-	private string $title;
-	
-	
-	public function __construct(SettingsMainEvent $event)
-	{
-		$this->id = new SettingsMainSocialUid();
-		$this->event = $event;
-	}
-	
-	
-	public function __clone() : void
-	{
+    public const TABLE = "settings_main_social";
+
+    /** ID */
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: SettingsMainSocialUid::TYPE)]
+    private SettingsMainSocialUid $id;
+
+    /** Связь на событие  */
+    #[ORM\ManyToOne(targetEntity: SettingsMainEvent::class, inversedBy: "social")]
+    #[ORM\JoinColumn(name: 'event', referencedColumnName: 'id')]
+    protected SettingsMainEvent $event;
+
+    /** Ссылка */
+    #[ORM\Column(name: 'href', type: Types::STRING, nullable: false)]
+    private string $href;
+
+    /** Иконка соцсети */
+    #[ORM\Column(name: 'icon', type: Types::STRING, nullable: true)]
+    private ?string $icon;
+
+    /** Краткое описание */
+    #[ORM\Column(name: 'title', type: Types::STRING, nullable: false)]
+    private string $title;
+
+
+    public function __construct(SettingsMainEvent $event)
+    {
+        $this->id = new SettingsMainSocialUid();
+        $this->event = $event;
+    }
+
+
+    public function __clone(): void
+    {
         $this->id = clone $this->id;
-	}
+    }
 
     public function __toString(): string
     {
         return (string) $this->id;
     }
-	
-	public function setSettings(SettingsMainEvent|SettingsMainEventUid $event) : void
-	{
-		$this->event = $event instanceof SettingsMainEvent ? $event->getId() : $event;
-	}
 
-	public function addSocial(string $href, string $title, ?string $icon = null) : void
-	{
-		$this->href = $href;
-		$this->title = $title;
-		$this->icon = $icon;
-	}
-	
+    public function setSettings(SettingsMainEvent|SettingsMainEventUid $event): void
+    {
+        $this->event = $event instanceof SettingsMainEvent ? $event->getId() : $event;
+    }
+
+    public function addSocial(string $href, string $title, ?string $icon = null): void
+    {
+        $this->href = $href;
+        $this->title = $title;
+        $this->icon = $icon;
+    }
+
 }

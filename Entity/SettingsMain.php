@@ -30,39 +30,40 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'settings_main')]
 class SettingsMain
 {
-	public const TABLE = 'settings_main';
-	
-	/**
+    public const TABLE = 'settings_main';
+
+    /**
      * Идентификатор
      */
-	#[ORM\Id]
-	#[ORM\Column(type: SettingsMainIdentificator::TYPE)]
-	private SettingsMainIdentificator $id;
-	
-	/**
+    #[ORM\Id]
+    #[ORM\Column(type: SettingsMainIdentificator::TYPE)]
+    private SettingsMainIdentificator $id;
+
+    /**
      * Идентификатор События
      */
-	#[ORM\Column(name: 'event', type: SettingsMainEventUid::TYPE, unique: true, nullable: false)]
-	private SettingsMainEventUid $event;
-	
-	
-	public function __construct() {
+    #[ORM\Column(name: 'event', type: SettingsMainEventUid::TYPE, unique: true, nullable: false)]
+    private SettingsMainEventUid $event;
+
+
+    public function __construct()
+    {
         $this->id = new SettingsMainIdentificator();
     }
 
-	public function getId() : SettingsMainIdentificator
-	{
-		return $this->id;
-	}
-
-	public function setEvent(SettingsMainEvent|SettingsMainEventUid $event) : void
-	{
-		$this->event = $event instanceof SettingsMainEvent ? $event->getId() : $event;
+    public function getId(): SettingsMainIdentificator
+    {
+        return $this->id;
     }
 
-	public function getEvent() : SettingsMainEventUid
-	{
-		return $this->event;
-	}
-	
+    public function setEvent(SettingsMainEvent|SettingsMainEventUid $event): void
+    {
+        $this->event = $event instanceof SettingsMainEvent ? $event->getId() : $event;
+    }
+
+    public function getEvent(): SettingsMainEventUid
+    {
+        return $this->event;
+    }
+
 }
