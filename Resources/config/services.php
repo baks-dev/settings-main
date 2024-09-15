@@ -23,14 +23,28 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use BaksDev\Core\Repository\SettingsMain\SettingsMainInterface;
 use BaksDev\Settings\Main\BaksDevSettingsMainBundle;
-use Symfony\Config\FrameworkConfig;
+use BaksDev\Settings\Main\Repository\SettingsMain\SettingsMainRepository;
 
-return static function(FrameworkConfig $config) {
-    $config
-        ->translator()
-        ->paths([BaksDevSettingsMainBundle::PATH.'Resources/translations/']);
+return static function (ContainerConfigurator $configurator) {
+
+    $services = $configurator->services()
+        ->defaults()
+        ->autowire()
+        ->autoconfigure();
+
+    $NAMESPACE = BaksDevSettingsMainBundle::NAMESPACE;
+    $PATH = BaksDevSettingsMainBundle::PATH;
+
+    $services->load($NAMESPACE, $PATH)
+        ->exclude([
+            $PATH.'{Entity,Resources,Type}',
+            $PATH.'**'.DIRECTORY_SEPARATOR.'*Message.php',
+            $PATH.'**'.DIRECTORY_SEPARATOR.'*DTO.php',
+            $PATH.'**'.DIRECTORY_SEPARATOR.'*Test.php',
+        ]);
+
+    $services->alias(SettingsMainInterface::class.' $settingsMain', SettingsMainRepository::class);
+
 };
-
-
-
