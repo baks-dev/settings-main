@@ -58,7 +58,16 @@ final class SettingsHeadersListeners
         {
             $globals = $this->twig->getGlobals();
             $baks_settings = $globals['baks_settings'] ?? [];
-            $this->twig->addGlobal('baks_settings', array_replace_recursive($baks_settings, ['headers' => $data]));
+
+            $phones = $this->settingsMain->getPhone();
+
+            $social = $this->settingsMain->getSocial();
+
+            $this->twig->addGlobal('baks_settings', array_replace_recursive($baks_settings, [
+                'headers' => $data,
+                'phones' => $phones,
+                'social' => $social,
+            ]));
 
         }
     }

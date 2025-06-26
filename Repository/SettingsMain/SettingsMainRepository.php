@@ -1,6 +1,6 @@
 <?php
 /*
- *  Copyright 2024.  Baks.dev <admin@baks.dev>
+ *  Copyright 2025.  Baks.dev <admin@baks.dev>
  *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -25,18 +25,28 @@ namespace BaksDev\Settings\Main\Repository\SettingsMain;
 
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Core\Repository\SettingsMain\SettingsMainInterface;
+use BaksDev\Field\Pack\Phone\Type\PhoneField;
 use BaksDev\Settings\Main\Entity\Event\SettingsMainEvent;
 use BaksDev\Settings\Main\Entity\Phone\SettingsMainPhone;
 use BaksDev\Settings\Main\Entity\Seo\SettingsMainSeo;
 use BaksDev\Settings\Main\Entity\SettingsMain;
 use BaksDev\Settings\Main\Entity\Social\SettingsMainSocial;
 use BaksDev\Settings\Main\Type\Id\SettingsMainIdentificator;
+use BaksDev\Users\Profile\TypeProfile\Entity\Section\Fields\TypeProfileSectionField;
+use BaksDev\Users\Profile\TypeProfile\Entity\Section\TypeProfileSection;
+use BaksDev\Users\Profile\TypeProfile\Type\Section\Field\Id\TypeProfileSectionFieldUid;
+use BaksDev\Users\Profile\UserProfile\Entity\Personal\UserProfilePersonal;
+use BaksDev\Users\Profile\UserProfile\Entity\UserProfile;
+use BaksDev\Users\Profile\UserProfile\Entity\Value\UserProfileValue;
+use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 final readonly class SettingsMainRepository implements SettingsMainInterface
 {
     public function __construct(
         private DBALQueryBuilder $DBALQueryBuilder,
-        private SettingsMainIdentificator $settingsMainIdentificator
+        private SettingsMainIdentificator $settingsMainIdentificator,
+        #[Autowire(env: 'PROJECT_PROFILE')] private ?string $projectProfile = null,
     ) {}
 
     public function getSettingsMainAssociative(): ?array
@@ -45,6 +55,37 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
             ->DBALQueryBuilder
             ->createQueryBuilder(self::class)
             ->bindLocal();
+
+        /**
+         * Присваиваем контактный номер телефона профиля проекта
+         */
+
+        if($this->projectProfile)
+        {
+            $dbal
+                ->from(UserProfile::class, 'profile')
+                ->where('profile.id = :'.$dbal::PROJECT_PROFILE_KEY)
+                ->setParameter(
+                    key: $dbal::PROJECT_PROFILE_KEY,
+                    value: new UserProfileUid($this->projectProfile),
+                    type: UserProfileUid::TYPE,
+                );
+
+            $dbal
+                ->addSelect('profile_personal.username AS title')
+                ->addSelect('NULL AS keywords')
+                ->addSelect('profile_personal.location AS description')
+                ->leftJoin(
+                    'profile',
+                    UserProfilePersonal::class,
+                    'profile_personal',
+                    'profile_personal.event = profile.event',
+                );
+
+            return $dbal
+                ->enableCache('users-profile-user', 84600)
+                ->fetchAssociative() ?: [];
+        }
 
 
         $dbal
@@ -58,7 +99,7 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
                 'main',
                 SettingsMainEvent::class,
                 'event',
-                'event.id = main.event'
+                'event.id = main.event',
             );
 
         /* SEO */
@@ -70,7 +111,7 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
                 'main',
                 SettingsMainSeo::class,
                 'seo',
-                'seo.event = main.event and seo.local = :local'
+                'seo.event = main.event and seo.local = :local',
             );
 
 
@@ -85,6 +126,51 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
     public function getPhone(): array
     {
         $dbal = $this->DBALQueryBuilder->createQueryBuilder(self::class);
+
+        /**
+         * Присваиваем контактный номер телефона профиля проекта
+         */
+
+        if($this->projectProfile)
+        {
+            $dbal
+                ->from(UserProfile::class, 'profile')
+                ->where('profile.id = :'.$dbal::PROJECT_PROFILE_KEY)
+                ->setParameter(
+                    key: $dbal::PROJECT_PROFILE_KEY,
+                    value: new UserProfileUid($this->projectProfile),
+                    type: UserProfileUid::TYPE,
+                );
+
+            $dbal
+                ->addSelect('NULL AS icon')
+                ->addSelect('NULL AS title')
+                ->addSelect('profile_value.value AS phone')
+                ->leftJoin(
+                    'profile',
+                    UserProfileValue::class,
+                    'profile_value',
+                    'profile_value.event = profile.event',
+                );
+
+            $dbal
+                ->join(
+                    'profile_value',
+                    TypeProfileSectionField::class,
+                    'type_section_field',
+                    '
+                        type_section_field.id = profile_value.field AND
+                        type_section_field.type = :field_phone
+                    ')
+                ->setParameter(
+                    'field_phone',
+                    PhoneField::TYPE,
+                );
+
+            return $dbal
+                ->enableCache('users-profile-user', 84600)
+                ->fetchAllAssociative();
+        }
 
 
         $dbal
@@ -101,11 +187,13 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
                 'main',
                 SettingsMainPhone::class,
                 'phone',
-                'phone.event = main.event'
+                'phone.event = main.event',
             );
 
 
-        return $dbal->fetchAllAssociative();
+        return $dbal
+            ->enableCache('settings-main', '1 day')
+            ->fetchAllAssociative();
 
     }
 
@@ -126,11 +214,13 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
                 'main',
                 SettingsMainSocial::class,
                 'social',
-                'social.event = main.event'
+                'social.event = main.event',
             );
 
 
-        return $dbal->fetchAllAssociative();
+        return $dbal
+            ->enableCache('settings-main', '1 day')
+            ->fetchAllAssociative();
 
     }
 
