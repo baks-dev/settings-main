@@ -1,1 +1,54 @@
-<div>Временно недоступно</div>
+{% trans_default_domain 'settings.main' %}
+
+<main class="main d-print-none container px-4">
+
+    <div class="mt-3">
+        {{ include(_self|replace({ "content.html.twig": "breadcrumb.html.twig" })) }}
+    </div>
+
+    {{ form_start(form) }}
+    <div class="d-flex align-items-start flex-column gap-3">
+
+        <div class="d-flex flex-column w-100 gap-3">
+
+            {# Основные натсройки #}
+            {{ include(_self|replace({ "content.html.twig": "_main.html.twig" })) }}
+
+            {# Настройки SEO #}
+            {{ include(_self|replace({ "content.html.twig": "_seo.html.twig" })) }}
+
+        </div>
+
+        <div class="d-flex flex-column w-100 gap-3">
+            {# Список телефонов #}
+            {{ include(_self|replace({ "content.html.twig": "_phone.html.twig" })) }}
+
+            {# Ссылки на страницы в соцсетях #}
+            {{ include(_self|replace({ "content.html.twig": "_social.html.twig" })) }}
+        </div>
+
+    </div>
+
+    <div class="position-sticky bg-body " style="bottom: 0;">
+        <hr>
+        <div class="d-flex justify-content-between pb-5 gap-3">
+            <div class="flex-grow-1"></div>
+
+            {# <a href="https://bundles.baks.dev/admin/products" class="btn btn-light">
+				Отмена
+			</a> #}
+
+            {{ form_widget(form.settings_main, { label: '
+				<span>'~ 'btn.save'|trans({}, 'core.btn') ~'</span>
+				<span class="spinner-border spinner-border-sm vertical-middle d-none"></span>
+			'}) }}
+
+        </div>
+    </div>
+
+
+    {{ form_end(form) }}
+
+</main>
+
+
