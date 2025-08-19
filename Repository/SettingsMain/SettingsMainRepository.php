@@ -36,6 +36,7 @@ use BaksDev\Users\Profile\TypeProfile\Entity\Section\Fields\TypeProfileSectionFi
 use BaksDev\Users\Profile\TypeProfile\Entity\Section\TypeProfileSection;
 use BaksDev\Users\Profile\TypeProfile\Type\Section\Field\Id\TypeProfileSectionFieldUid;
 use BaksDev\Users\Profile\UserProfile\Entity\Event\Personal\UserProfilePersonal;
+use BaksDev\Users\Profile\UserProfile\Entity\Event\Region\UserProfileRegion;
 use BaksDev\Users\Profile\UserProfile\Entity\Event\Value\UserProfileValue;
 use BaksDev\Users\Profile\UserProfile\Entity\UserProfile;
 use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
@@ -47,6 +48,7 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
         private DBALQueryBuilder $DBALQueryBuilder,
         private SettingsMainIdentificator $settingsMainIdentificator,
         #[Autowire(env: 'PROJECT_PROFILE')] private ?string $projectProfile = null,
+        #[Autowire(env: 'PROJECT_REGION')] private ?string $projectRegion = null,
     ) {}
 
     public function getSettingsMainAssociative(): ?array
@@ -80,6 +82,15 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
                     UserProfilePersonal::class,
                     'profile_personal',
                     'profile_personal.event = profile.event',
+                );
+
+            $dbal
+                ->addSelect('user_profile_region.value AS region')
+                ->leftJoin(
+                    'profile',
+                    UserProfileRegion::class,
+                    'user_profile_region',
+                    'user_profile_region.event = profile.event',
                 );
 
             return $dbal
