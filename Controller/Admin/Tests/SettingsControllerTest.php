@@ -24,12 +24,12 @@
 namespace BaksDev\Settings\Main\Controller\Admin\Tests;
 
 use BaksDev\Users\User\Tests\TestUserAccount;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
-/** @group settings-main
- */
 #[When(env: 'test')]
+#[Group('settings-main')]
 final class SettingsControllerTest extends WebTestCase
 {
     private const string URL = '/admin/settings/main';
