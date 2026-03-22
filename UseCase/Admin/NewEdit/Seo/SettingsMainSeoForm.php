@@ -43,7 +43,7 @@ final class SettingsMainSeoForm extends AbstractType
         (
             [
                 'data_class' => SettingsMainSeoDTO::class,
-            ]
+            ],
         );
     }
 

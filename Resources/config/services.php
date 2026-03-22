@@ -28,7 +28,7 @@ use BaksDev\Settings\Main\BaksDevSettingsMainBundle;
 use BaksDev\Settings\Main\Repository\SettingsMain\SettingsMainRepository;
 use BaksDev\Settings\Main\Type\Id\SettingsMainIdentificator;
 
-return static function (ContainerConfigurator $configurator) {
+return static function(ContainerConfigurator $configurator) {
 
     $services = $configurator->services()
         ->defaults()

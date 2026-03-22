@@ -16,19 +16,19 @@
  */
 
 /* кнопка Добавить номер */
-let $addButtonPhone = document.getElementById('phone_addCollection');
+let $addButtonPhone = document.getElementById("phone_addCollection");
 
 /* Блок для новой коллекции КАТЕГОРИИ */
-let $blockCollectionPhone = document.getElementById('phone_collection');
+let $blockCollectionPhone = document.getElementById("phone_collection");
 
 if($addButtonPhone)
 {
 
     /* Добавляем новую коллекцию */
-    $addButtonPhone.addEventListener('click', function()
+    $addButtonPhone.addEventListener("click", function()
     {
-        let $emptyCollectionPhone = document.getElementById('empty_phone_collection');
-        $emptyCollectionPhone.classList.add('d-none');
+        let $emptyCollectionPhone = document.getElementById("empty_phone_collection");
+        $emptyCollectionPhone.classList.add("d-none");
 
         /* получаем прототип коллекции  */
         let newForm = $addButtonPhone.dataset.prototype;
@@ -39,8 +39,8 @@ if($addButtonPhone)
         newForm = newForm.replace(/__name__/g, index);
 
         /* Вставляем новую коллекцию */
-        let div = document.createElement('div');
-        div.classList.add('item-collection-phone')
+        let div = document.createElement("div");
+        div.classList.add("item-collection-phone");
         div.innerHTML = newForm;
         $blockCollectionPhone.append(div);
 
@@ -49,10 +49,10 @@ if($addButtonPhone)
         $emptyCollectionPhone.style.setProperty("display", "none", "important");
 
         /* Удаляем при клике колекцию СЕКЦИЙ */
-        div.querySelector('.del-item-phone').addEventListener('click', function()
+        div.querySelector(".del-item-phone").addEventListener("click", function()
         {
 
-            this.closest('.item-collection-phone').remove();
+            this.closest(".item-collection-phone").remove();
             /* Уменьшаем индекс */
 
             $addButtonPhone.dataset.index = ($addButtonPhone.dataset.index - 1).toString();
@@ -60,36 +60,38 @@ if($addButtonPhone)
             if($addButtonPhone.dataset.index > 0)
             {
                 $emptyCollectionPhone.style.setProperty("display", "none", "important");
-            } else
+            }
+            else
             {
-                $emptyCollectionPhone.style.display = 'flex';
+                $emptyCollectionPhone.style.display = "flex";
             }
 
         });
     });
 
     /* добавить событие на удаление ко всем существующим элементам формы в блок с классом .del-item */
-    let $delItemPhone = $blockCollectionPhone.querySelectorAll('.del-item-phone');
+    let $delItemPhone = $blockCollectionPhone.querySelectorAll(".del-item-phone");
 
     /* Удаляем при клике колекцию СЕКЦИЙ */
     $delItemPhone.forEach(function(item)
     {
 
-        item.addEventListener('click', function()
+        item.addEventListener("click", function()
         {
-            item.closest('.item-collection-phone').remove();
+            item.closest(".item-collection-phone").remove();
 
             /* Уменьшаем индекс */
             $addButtonPhone.dataset.index = ($addButtonPhone.dataset.index - 1).toString();
 
-            let $emptyCollectionPhone = document.getElementById('empty_phone_collection');
+            let $emptyCollectionPhone = document.getElementById("empty_phone_collection");
 
             if($addButtonPhone.dataset.index > 0)
             {
                 $emptyCollectionPhone.style.setProperty("display", "none", "important");
-            } else
+            }
+            else
             {
-                $emptyCollectionPhone.style.display = 'flex';
+                $emptyCollectionPhone.style.display = "flex";
             }
         });
     });

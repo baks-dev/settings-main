@@ -54,9 +54,9 @@ class SettingsMain
         $this->id = new SettingsMainIdentificator();
     }
 
-    public function getId(): SettingsMainIdentificator
+    public function getEvent(): SettingsMainEventUid
     {
-        return $this->id;
+        return $this->event;
     }
 
     public function setEvent(SettingsMainEvent|SettingsMainEventUid $event): void
@@ -64,9 +64,9 @@ class SettingsMain
         $this->event = $event instanceof SettingsMainEvent ? $event->getId() : $event;
     }
 
-    public function getEvent(): SettingsMainEventUid
+    public function getId(): SettingsMainIdentificator
     {
-        return $this->event;
+        return $this->id;
     }
 
 }

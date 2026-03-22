@@ -71,7 +71,7 @@ final class SettingsMainForm extends AbstractType
                 'label_html' => true,
                 'attr' => ['class' => 'btn-primary'],
                 'translation_domain' => 'messages',
-            ]
+            ],
         );
 
     }
@@ -84,7 +84,7 @@ final class SettingsMainForm extends AbstractType
             [
                 'data_class' => SettingsMainDTO::class,
                 'method' => 'POST',
-            ]
+            ],
         );
     }
 

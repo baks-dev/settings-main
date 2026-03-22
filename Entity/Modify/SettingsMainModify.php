@@ -53,23 +53,18 @@ class SettingsMainModify extends EntityEvent
     /** Модификатор */
     #[ORM\Column(type: ModifyAction::TYPE, nullable: false)]
     protected ModifyAction $action;
-
-    /** Дата */
-    #[ORM\Column(name: 'mod_date', type: Types::DATETIME_IMMUTABLE, nullable: false)]
-    private DateTimeImmutable $modDate;
-
     /** ID пользователя  */
     #[ORM\Column(type: UserUid::TYPE, nullable: true)]
     protected ?UserUid $usr = null;
-
     /** Ip адрес */
     #[ORM\Column(type: IpAddress::TYPE, nullable: false)]
     protected IpAddress $ip;
-
     /** User-agent */
     #[ORM\Column(type: Types::TEXT, nullable: false)]
     protected string $agent;
-
+    /** Дата */
+    #[ORM\Column(name: 'mod_date', type: Types::DATETIME_IMMUTABLE, nullable: false)]
+    private DateTimeImmutable $modDate;
 
     public function __construct(SettingsMainEvent $event)
     {

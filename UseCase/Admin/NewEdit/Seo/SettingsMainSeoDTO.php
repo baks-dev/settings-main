@@ -17,8 +17,8 @@
 
 namespace BaksDev\Settings\Main\UseCase\Admin\NewEdit\Seo;
 
-use BaksDev\Settings\Main\Entity\Seo\SettingsMainSeoInterface;
 use BaksDev\Core\Type\Locale\Locale;
+use BaksDev\Settings\Main\Entity\Seo\SettingsMainSeoInterface;
 use ReflectionProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 

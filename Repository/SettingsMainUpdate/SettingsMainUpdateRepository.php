@@ -49,7 +49,7 @@ final class SettingsMainUpdateRepository implements SettingsMainUpdateInterface
             ->setParameter(
                 key: ':settings',
                 value: $this->id,
-                type: SettingsMainIdentificator::TYPE
+                type: SettingsMainIdentificator::TYPE,
             );
 
         $qb
@@ -58,7 +58,7 @@ final class SettingsMainUpdateRepository implements SettingsMainUpdateInterface
                 SettingsMainEvent::class,
                 'event',
                 'WITH',
-                'event.id = settings.event'
+                'event.id = settings.event',
             );
 
 

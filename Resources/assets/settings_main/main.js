@@ -16,10 +16,10 @@
  */
 
 
-document.getElementById('settings_main_form_color').addEventListener('change', function()
+document.getElementById("settings_main_form_color").addEventListener("change", function()
 {
     console.log(this.value);
-    document.getElementById('color').value = '#' + this.value;
+    document.getElementById("color").value = "#" + this.value;
 });
 
 

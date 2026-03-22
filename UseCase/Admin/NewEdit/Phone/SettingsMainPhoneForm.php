@@ -55,7 +55,7 @@ final class SettingsMainPhoneForm extends AbstractType
                 'label_html' => true,
                 'attr' =>
                     ['class' => 'btn btn-danger del-item-phone'],
-            ]
+            ],
         );
 
     }
@@ -67,7 +67,7 @@ final class SettingsMainPhoneForm extends AbstractType
         (
             [
                 'data_class' => SettingsMainPhoneDTO::class,
-            ]
+            ],
         );
     }
 

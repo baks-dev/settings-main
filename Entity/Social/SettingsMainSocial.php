@@ -34,16 +34,14 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'settings_main_social')]
 class SettingsMainSocial extends EntityEvent
 {
-    /** ID */
-    #[ORM\Id]
-    #[ORM\Column(name: 'id', type: SettingsMainSocialUid::TYPE)]
-    private SettingsMainSocialUid $id;
-
     /** Связь на событие  */
     #[ORM\ManyToOne(targetEntity: SettingsMainEvent::class, inversedBy: "social")]
     #[ORM\JoinColumn(name: 'event', referencedColumnName: 'id')]
     protected SettingsMainEvent $event;
-
+    /** ID */
+    #[ORM\Id]
+    #[ORM\Column(name: 'id', type: SettingsMainSocialUid::TYPE)]
+    private SettingsMainSocialUid $id;
     /** Ссылка */
     #[ORM\Column(name: 'href', type: Types::STRING, nullable: false)]
     private string $href;

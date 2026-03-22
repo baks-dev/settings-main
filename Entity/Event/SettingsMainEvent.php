@@ -94,22 +94,20 @@ class SettingsMainEvent extends EntityEvent
         return (string) $this->id;
     }
 
-    public function getId(): SettingsMainEventUid
-    {
-        return $this->id;
-    }
-
     public function getSetting(): ?SettingsMainIdentificator
     {
         return $this->setting;
     }
-
 
     public function setSetting(SettingsMain|SettingsMainIdentificator $setting): void
     {
         $this->setting = $setting instanceof SettingsMain ? $setting->getId() : $setting;
     }
 
+    public function getId(): SettingsMainEventUid
+    {
+        return $this->id;
+    }
 
     public function getDto($dto): mixed
     {

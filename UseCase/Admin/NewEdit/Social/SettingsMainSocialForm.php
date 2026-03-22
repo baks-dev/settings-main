@@ -60,7 +60,7 @@ final class SettingsMainSocialForm extends AbstractType
                 'label_html' => true,
                 'attr' =>
                     ['class' => 'btn btn-danger del-item-social'],
-            ]
+            ],
         );
 
     }
@@ -72,7 +72,7 @@ final class SettingsMainSocialForm extends AbstractType
         (
             [
                 'data_class' => SettingsMainSocialDTO::class,
-            ]
+            ],
         );
     }
 

@@ -13,7 +13,7 @@ use BaksDev\Settings\Main\Type\Social\SettingsMainSocialType;
 use BaksDev\Settings\Main\Type\Social\SettingsMainSocialUid;
 use Symfony\Config\DoctrineConfig;
 
-return static function (ContainerConfigurator $container, DoctrineConfig $doctrine) {
+return static function(ContainerConfigurator $container, DoctrineConfig $doctrine) {
 
     $doctrine->dbal()->type(SettingsMainIdentificator::TYPE)->class(SettingsMainType::class);
     $doctrine->dbal()->type(SettingsMainEventUid::TYPE)->class(SettingsMainEventType::class);

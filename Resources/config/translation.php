@@ -26,7 +26,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use BaksDev\Settings\Main\BaksDevSettingsMainBundle;
 use Symfony\Config\FrameworkConfig;
 
-return static function (FrameworkConfig $config) {
+return static function(FrameworkConfig $config) {
     $config
         ->translator()
         ->paths([BaksDevSettingsMainBundle::PATH.implode(DIRECTORY_SEPARATOR, ['Resources', 'translations', ''])]); // .'Resources/translations/']);
