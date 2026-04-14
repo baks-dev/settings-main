@@ -46,13 +46,7 @@ final class SettingsHeadersListeners
     /** Метод применяет настройки заголовков title, description, keywords, tags */
     public function onKernelRequest(RequestEvent $event): void
     {
-        if($event->getRequest()->isXmlHttpRequest())
-        {
-            return;
-        }
-
-        $data = $this->settingsMain
-            ->getSettingsMainAssociative($event->getRequest()->getHost(), $event->getRequest()->getLocale());
+        $data = $this->settingsMain->getSettingsMainAssociative();
 
         if($data)
         {
