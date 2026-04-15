@@ -163,9 +163,7 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
                 );
 
             $dbal
-                ->addSelect('NULL AS icon')
-                ->addSelect('NULL AS title')
-                ->addSelect('profile_value.value AS phone')
+                ->addSelect('profile_value.value AS value')
                 ->leftJoin(
                     'profile',
                     UserProfileValue::class,
@@ -187,6 +185,17 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
                     PhoneField::TYPE,
                 );
 
+
+            $dbal
+                ->addSelect('type_section_field_trans.name AS name')
+                ->leftJoin(
+                    'type_section_field',
+                    TypeProfileSectionFieldTrans::class,
+                    'type_section_field_trans',
+                    'type_section_field_trans.field = profile_value.field',
+                );
+
+
             return $dbal
                 ->enableCache('users-profile-user', 84600)
                 ->fetchAllAssociative();
@@ -198,11 +207,9 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
             ->where('main.id = :main')
             ->setParameter('main', $this->settingsMainIdentificator, SettingsMainIdentificator::TYPE);
 
-
         $dbal
-            ->addSelect('phone.icon')
-            ->addSelect('phone.title')
-            ->addSelect('phone.phone')
+            ->addSelect('phone.title AS name')
+            ->addSelect('phone.phone AS value')
             ->join(
                 'main',
                 SettingsMainPhone::class,
@@ -307,7 +314,7 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
                 );
 
             $dbal
-                ->addSelect('profile_value.value AS email')
+                ->addSelect('profile_value.value AS value')
                 ->leftJoin(
                     'profile',
                     UserProfileValue::class,
