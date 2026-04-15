@@ -53,13 +53,20 @@ final class SettingsHeadersListeners
             $globals = $this->twig->getGlobals();
             $baks_settings = $globals['baks_settings'] ?? [];
 
+            // Potentially polymorphic call. SettingsMainRepository does not have members in its hierarchy
             $phones = $this->settingsMain->getPhone();
 
             $social = $this->settingsMain->getSocial();
 
+            $emails = $this->settingsMain->getEmail();
+
+            $schedule = $this->settingsMain->getSchedule();
+
             $this->twig->addGlobal('baks_settings', array_replace_recursive($baks_settings, [
                 'headers' => $data,
                 'phones' => $phones,
+                'email' => $emails,
+                'schedule' => $schedule,
                 'social' => $social,
             ]));
 

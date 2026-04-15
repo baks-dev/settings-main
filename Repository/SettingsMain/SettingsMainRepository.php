@@ -23,15 +23,18 @@
 
 namespace BaksDev\Settings\Main\Repository\SettingsMain;
 
+use BaksDev\Auth\Email\Type\Email\AccountEmail;
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Core\Repository\SettingsMain\SettingsMainInterface;
 use BaksDev\Field\Pack\Phone\Type\PhoneField;
+use BaksDev\Field\Pack\Schedule\Type\ScheduleField;
 use BaksDev\Settings\Main\Entity\Event\SettingsMainEvent;
 use BaksDev\Settings\Main\Entity\Phone\SettingsMainPhone;
 use BaksDev\Settings\Main\Entity\Seo\SettingsMainSeo;
 use BaksDev\Settings\Main\Entity\SettingsMain;
 use BaksDev\Settings\Main\Entity\Social\SettingsMainSocial;
 use BaksDev\Settings\Main\Type\Id\SettingsMainIdentificator;
+use BaksDev\Users\Profile\TypeProfile\Entity\Section\Fields\Trans\TypeProfileSectionFieldTrans;
 use BaksDev\Users\Profile\TypeProfile\Entity\Section\Fields\TypeProfileSectionField;
 use BaksDev\Users\Profile\TypeProfile\Entity\Section\TypeProfileSection;
 use BaksDev\Users\Profile\TypeProfile\Type\Section\Field\Id\TypeProfileSectionFieldUid;
@@ -93,6 +96,10 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
                     'user_profile_region.event = profile.event',
                 );
 
+
+            /** Контактные номера тел: */
+
+
             return $dbal
                 ->enableCache('users-profile-user', 84600)
                 ->fetchAssociative() ?: [];
@@ -133,7 +140,9 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
 
     }
 
-
+    /**
+     * Контактные номера телефонов
+     */
     public function getPhone(): array
     {
         $dbal = $this->DBALQueryBuilder->createQueryBuilder(self::class);
@@ -206,6 +215,146 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
             ->enableCache('settings-main', '1 day')
             ->fetchAllAssociative();
 
+    }
+
+    /**
+     * График работы
+     */
+    public function getSchedule(): array
+    {
+        if($this->projectProfile)
+        {
+            $dbal = $this->DBALQueryBuilder->createQueryBuilder(self::class);
+
+            $dbal
+                ->from(UserProfile::class, 'profile')
+                ->where('profile.id = :'.$dbal::PROJECT_PROFILE_KEY)
+                ->setParameter(
+                    key: $dbal::PROJECT_PROFILE_KEY,
+                    value: new UserProfileUid($this->projectProfile),
+                    type: UserProfileUid::TYPE,
+                );
+
+            $dbal
+                ->addSelect('profile_value.value AS value')
+                ->leftJoin(
+                    'profile',
+                    UserProfileValue::class,
+                    'profile_value',
+                    'profile_value.event = profile.event',
+                );
+
+            $dbal
+                ->join(
+                    'profile_value',
+                    TypeProfileSectionField::class,
+                    'type_section_field',
+                    '
+                        type_section_field.id = profile_value.field AND
+                        type_section_field.type = :schedule_field
+                    ')
+                ->setParameter(
+                    'schedule_field',
+                    ScheduleField::TYPE,
+                );
+
+            $dbal
+                ->addSelect('type_section_field_trans.name AS name')
+                ->leftJoin(
+                    'type_section_field',
+                    TypeProfileSectionFieldTrans::class,
+                    'type_section_field_trans',
+                    'type_section_field_trans.field = profile_value.field',
+                );
+
+
+            $dbal->setMaxResults(1);
+
+            $result = $dbal
+                ->enableCache('users-profile-user', '1 day')
+                ->fetchAssociative();
+
+
+            if($result)
+            {
+                return $result;
+            }
+        }
+
+        return [
+            'name' => 'График работы',
+            'value' => 'Ежедневно 10.00 до 20.00',
+        ];
+    }
+
+
+    /**
+     * Контактный E-mail
+     */
+    public function getEmail(): array
+    {
+        if($this->projectProfile)
+        {
+            $dbal = $this->DBALQueryBuilder->createQueryBuilder(self::class);
+
+            $dbal
+                ->from(UserProfile::class, 'profile')
+                ->where('profile.id = :'.$dbal::PROJECT_PROFILE_KEY)
+                ->setParameter(
+                    key: $dbal::PROJECT_PROFILE_KEY,
+                    value: new UserProfileUid($this->projectProfile),
+                    type: UserProfileUid::TYPE,
+                );
+
+            $dbal
+                ->addSelect('profile_value.value AS email')
+                ->leftJoin(
+                    'profile',
+                    UserProfileValue::class,
+                    'profile_value',
+                    'profile_value.event = profile.event',
+                );
+
+            $dbal
+                ->join(
+                    'profile_value',
+                    TypeProfileSectionField::class,
+                    'type_section_field',
+                    '
+                        type_section_field.id = profile_value.field AND
+                        type_section_field.type = :account_email
+                    ')
+                ->setParameter(
+                    'account_email',
+                    AccountEmail::TYPE,
+                );
+
+
+            $dbal
+                ->addSelect('type_section_field_trans.name AS name')
+                ->leftJoin(
+                    'type_section_field',
+                    TypeProfileSectionFieldTrans::class,
+                    'type_section_field_trans',
+                    'type_section_field_trans.field = profile_value.field',
+                );
+
+            $dbal->setMaxResults(1);
+
+            $result = $dbal
+                ->enableCache('users-profile-user', 84600)
+                ->fetchAssociative();
+
+            if($result)
+            {
+                return $result;
+            }
+        }
+
+        return [
+            'name' => 'Контактный E-mail',
+            'value' => 'admin@localhost',
+        ];
     }
 
     public function getSocial()
