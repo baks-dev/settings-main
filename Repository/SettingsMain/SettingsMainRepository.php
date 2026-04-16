@@ -195,6 +195,7 @@ final readonly class SettingsMainRepository implements SettingsMainInterface
                     'type_section_field_trans.field = profile_value.field',
                 );
 
+            $dbal->orderBy('type_section_field.sort');
 
             return $dbal
                 ->enableCache('users-profile-user', 84600)
